@@ -56,9 +56,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="ColorTest", group="sensor")
+@Autonomous(name="ColortestJewelBlue", group="sensor")
 //@Disabled
-public class Team9997ColorTest extends LinearOpMode {
+public class Team9997JewelBlue extends LinearOpMode {
 
     /* Declare OpMode members. */
     Team9997Hardware robot  = new Team9997Hardware();
@@ -104,7 +104,7 @@ public class Team9997ColorTest extends LinearOpMode {
             telemetry.addData("ALPHA", robot.color_sensor.alpha());
             telemetry.addData("ARGB", robot.color_sensor.argb());//
             telemetry.update();
-            if (robot.color_sensor.alpha() > 500 ) {
+            if (robot.color_sensor.alpha() < 400 ) {
                 robot.leftMotor.setPower(robot.FORWARD_SPEED);
                 robot.rightMotor.setPower(robot.FORWARD_SPEED);
                 telemetry.addData("color", Integer.toString(robot.color_sensor.alpha()));
