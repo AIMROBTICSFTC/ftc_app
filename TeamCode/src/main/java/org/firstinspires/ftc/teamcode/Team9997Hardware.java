@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -31,7 +32,8 @@ public class Team9997Hardware
     public DcMotor rightMotor  = null;
     public DcMotor  liftMotor = null;
 
-    //public Servo    arm1         = null;
+    public Servo    claw         = null;
+
     public ColorSensor color_sensor;
     public DigitalChannel digIn;
 
@@ -42,6 +44,7 @@ public class Team9997Hardware
     public final double CLAW_HOME = 0.2;
     public final double CLAW_MIN_RANGE  = 0.20;
     public final double CLAW_MAX_RANGE  = 0.7;
+    public final double CLAW_SPEED = 0.1;
     public final double ARM_SPEED       = 0.1 ;     // sets rate to move servo
     public final double     FORWARD_SPEED = 1.0;
     public final double     TURN_SPEED    = 1.0;
@@ -74,6 +77,7 @@ public class Team9997Hardware
         liftMotor   = hwMap.dcMotor.get("lift");
         rightMotor  = hwMap.dcMotor.get("rd");
         leftMotor.setDirection(DcMotor.Direction.REVERSE); //commented out for encoder
+            claw = hwMap.servo.get("claw");
 
         // Set all motors to zero power
         leftMotor.setPower(0);
@@ -94,7 +98,7 @@ public class Team9997Hardware
        // arm1.setPosition(ARM_HOME);
 
 
-        //       claw.setPosition(CLAW_HOME);
+         claw.setPosition(CLAW_HOME);
 
         // Define and initialize ALL installed sensors.
 

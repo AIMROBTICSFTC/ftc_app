@@ -75,8 +75,7 @@ public class TestCode9997servo extends LinearOpMode {
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
 
-                robot.
-                        claw.setPosition(gamepad1.right_trigger);
+                robot.claw.setPosition(gamepad1.right_trigger);
 
             // Pause for metronome tick.  40 mS each cycle = update 25 times a second.
             robot.waitForTick(40);

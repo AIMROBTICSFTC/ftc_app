@@ -51,7 +51,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="9997Tank", group="9997")
+@TeleOp(name="9997TankDrive", group="9997")
 //@Disabled
 public class TestCode9997tank extends LinearOpMode {
 
@@ -63,6 +63,7 @@ public class TestCode9997tank extends LinearOpMode {
         double left;
         double right;
         double arm1;
+        double lift;
         /* Initialize the hardware variables.
          * The init() method of the hardware class does all the work here
          */
@@ -87,34 +88,38 @@ public class TestCode9997tank extends LinearOpMode {
            }
 */
 
-right = -gamepad1.right_stick_x;
-            left = -gamepad1.left_stick_x;
+            right = -gamepad1.right_stick_y;
+            left = -gamepad1.left_stick_y;
             robot.leftMotor.setPower(left * Math.abs(left));
             robot.rightMotor.setPower(right * Math.abs(right));
+            lift = gamepad1.right_trigger -gamepad1.left_trigger;
+            robot.liftMotor.setPower(lift * Math.abs(lift));
 
             // Use gamepad Y & A raise and lower the arm
-            if (gamepad1.a)
-                robot.armPosition += robot.ARM_SPEED;
-            else if (gamepad1.y)
-                robot.armPosition -= robot.ARM_SPEED;
-/*
+
+
+
             // Use gamepad X & B to open and close the claw
+
+            double clawPosition = 0;
+
+
             if (gamepad1.x)
-                clawPosition += CLAW_SPEED;
+                clawPosition += robot.CLAW_SPEED;
             else if (gamepad1.b)
-                clawPosition -= CLAW_SPEED;
-*/
+                clawPosition -= robot.CLAW_SPEED;
+
 
             // Move both servos to new position.
            // robot.armPosition  = Range.clip(robot.armPosition, robot.ARM_MIN_RANGE, robot.ARM_MAX_RANGE);
          //   robot.arm1.setPosition(robot.armPosition);
 
-/*
 
-            clawPosition = Range.clip(clawPosition, robot.CLAW_MIN_RANGE, robot.CLAW_MAX_RANGE);
+
+           // clawPosition = Range.clip(clawPosition, robot.CLAW_MIN_RANGE, robot.CLAW_MAX_RANGE);
             robot.claw.setPosition(clawPosition);
 
-*/
+
             // Send telemetry message to signify robot running;
             telemetry.addData("arm",   "%.2f", robot.armPosition);
 //            telemetry.addData("claw",  "%.2f", clawPosition);
