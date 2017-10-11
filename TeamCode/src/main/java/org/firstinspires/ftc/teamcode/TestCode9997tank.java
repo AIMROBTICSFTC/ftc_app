@@ -64,6 +64,9 @@ public class TestCode9997tank extends LinearOpMode {
         double right;
         double arm1;
         double lift;
+
+        double clawPosition = 0;
+
         /* Initialize the hardware variables.
          * The init() method of the hardware class does all the work here
          */
@@ -88,10 +91,14 @@ public class TestCode9997tank extends LinearOpMode {
            }
 */
 
-            right = -gamepad1.right_stick_y;
+            right = gamepad1.right_stick_y;
             left = -gamepad1.left_stick_y;
+
+
             robot.leftMotor.setPower(left * Math.abs(left));
             robot.rightMotor.setPower(right * Math.abs(right));
+
+
             lift = gamepad1.right_trigger -gamepad1.left_trigger;
             robot.liftMotor.setPower(lift * Math.abs(lift));
 
@@ -101,15 +108,16 @@ public class TestCode9997tank extends LinearOpMode {
 
             // Use gamepad X & B to open and close the claw
 
-            double clawPosition = 0;
 
 
-            if (gamepad1.x)
+
+            if (gamepad1.left_bumper){
                 clawPosition += robot.CLAW_SPEED;
-            else if (gamepad1.b)
+            }
+            else if (gamepad1.right_bumper) {
                 clawPosition -= robot.CLAW_SPEED;
-
-
+            }
+telemetry.addData("claw position is ", clawPosition);
             // Move both servos to new position.
            // robot.armPosition  = Range.clip(robot.armPosition, robot.ARM_MIN_RANGE, robot.ARM_MAX_RANGE);
          //   robot.arm1.setPosition(robot.armPosition);
