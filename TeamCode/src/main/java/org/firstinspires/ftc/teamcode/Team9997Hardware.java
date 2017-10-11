@@ -29,6 +29,8 @@ public class Team9997Hardware
     /* Public OpMode members. */
     public DcMotor leftMotor   = null;
     public DcMotor rightMotor  = null;
+    public DcMotor  liftMotor = null;
+
     //public Servo    arm1         = null;
     public ColorSensor color_sensor;
     public DigitalChannel digIn;
@@ -69,12 +71,14 @@ public class Team9997Hardware
 
         // Define and Initialize Motors
         leftMotor   = hwMap.dcMotor.get("ld");
+        liftMotor   = hwMap.dcMotor.get("lift");
         rightMotor  = hwMap.dcMotor.get("rd");
         leftMotor.setDirection(DcMotor.Direction.REVERSE); //commented out for encoder
 
         // Set all motors to zero power
         leftMotor.setPower(0);
         rightMotor.setPower(0);
+        liftMotor.setPower(0);
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
@@ -84,7 +88,7 @@ public class Team9997Hardware
         // Reset encoders
         leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         //rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
+        liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         // Define and initialize ALL installed servos.
       //  arm1 = hwMap.servo.get("arm1");
        // arm1.setPosition(ARM_HOME);
