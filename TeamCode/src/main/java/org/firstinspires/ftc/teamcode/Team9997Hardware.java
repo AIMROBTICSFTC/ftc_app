@@ -28,12 +28,14 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class Team9997Hardware
 {
     /* Public OpMode members. */
-    public DcMotor leftMotor   = null;
-    public DcMotor rightMotor  = null;
+    public DcMotor  leftMotor   = null;
+    public DcMotor  rightMotor  = null;
     public DcMotor  liftMotor = null;
+    public DcMotor  extMotor = null;
 
-    public Servo    claw         = null;
-
+    public Servo    clawL         = null;
+    public Servo    clawR         = null;
+    public Servo    grab = null;
     public ColorSensor color_sensor;
     public DigitalChannel digIn;
 
@@ -77,8 +79,8 @@ public class Team9997Hardware
         liftMotor   = hwMap.dcMotor.get("lift");
         rightMotor  = hwMap.dcMotor.get("rd");
         leftMotor.setDirection(DcMotor.Direction.REVERSE); //commented out for encoder
-            claw = hwMap.servo.get("claw");
-
+            clawR = hwMap.servo.get("clawR");
+        clawL = hwMap.servo.get("clawL");
         // Set all motors to zero power
         leftMotor.setPower(0);
         rightMotor.setPower(0);
@@ -98,8 +100,8 @@ public class Team9997Hardware
        // arm1.setPosition(ARM_HOME);
 
 
-         claw.setPosition(CLAW_HOME);
-
+         clawL.setPosition(CLAW_HOME);
+        clawR.setPosition(CLAW_HOME);
         // Define and initialize ALL installed sensors.
 
         color_sensor = hwMap.colorSensor.get("color"); // uncomment to use color sensor,add too config

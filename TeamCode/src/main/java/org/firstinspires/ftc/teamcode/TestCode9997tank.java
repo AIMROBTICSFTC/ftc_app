@@ -107,17 +107,35 @@ public class TestCode9997tank extends LinearOpMode {
 
 
             // Use gamepad X & B to open and close the claw
-
-
-
-
-            if (gamepad1.left_bumper){
+/*
+*  if (gamepad1.left_bumper){
                 clawPosition += robot.CLAW_SPEED;
             }
             else if (gamepad1.right_bumper) {
                 clawPosition -= robot.CLAW_SPEED;
             }
 telemetry.addData("claw position is ", clawPosition);
+
+* */
+
+
+
+            if (gamepad1.a){
+                clawPosition = 0;
+            }
+            else if (gamepad1.b) {
+                clawPosition = 0.5;
+
+            }else if (gamepad1.y) {
+
+                clawPosition = 1.0;
+            }
+
+
+
+            telemetry.addData("claw position is ", clawPosition);
+
+
             // Move both servos to new position.
            // robot.armPosition  = Range.clip(robot.armPosition, robot.ARM_MIN_RANGE, robot.ARM_MAX_RANGE);
          //   robot.arm1.setPosition(robot.armPosition);
@@ -125,8 +143,8 @@ telemetry.addData("claw position is ", clawPosition);
 
 
            // clawPosition = Range.clip(clawPosition, robot.CLAW_MIN_RANGE, robot.CLAW_MAX_RANGE);
-            robot.claw.setPosition(clawPosition);
-
+            robot.clawR.setPosition(1.00-clawPosition);
+            robot.clawL.setPosition(clawPosition);
 
             // Send telemetry message to signify robot running;
             telemetry.addData("arm",   "%.2f", robot.armPosition);
