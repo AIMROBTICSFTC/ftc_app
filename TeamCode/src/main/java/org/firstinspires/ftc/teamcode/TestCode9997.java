@@ -60,14 +60,12 @@ public class TestCode9997 extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        double left;
-        double right;
         double arm1;
         /* Initialize the hardware variables.
          * The init() method of the hardware class does all the work here
          */
         robot.init(hardwareMap);
-
+        double clawPosition = 0;
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Say", "Hello Driver");    //
         telemetry.update();
@@ -88,17 +86,41 @@ public class TestCode9997 extends LinearOpMode {
 
 */
 
-            left = -gamepad1.right_stick_x + gamepad1.right_stick_y;
-            right = gamepad1.right_stick_x + gamepad1.right_stick_y;
-            robot.leftMotor.setPower(left * Math.abs(left));
-            robot.rightMotor.setPower(right * Math.abs(right));
+            robot.arcadeDrive(gamepad1.right_stick_y, gamepad1.right_stick_x);
+
 
             // Use gamepad Y & A raise and lower the arm
             if (gamepad1.a)
                 robot.armPosition += robot.ARM_SPEED;
             else if (gamepad1.y)
                 robot.armPosition -= robot.ARM_SPEED;
-/*
+            if (gamepad1.a){
+                clawPosition = 0;
+            }
+            else if (gamepad1.b) {
+                clawPosition = 0.5;
+
+            }else if (gamepad1.y) {
+
+                clawPosition = 1.0;
+            }
+
+
+
+            telemetry.addData("claw position is ", clawPosition);
+
+
+            // Move both servos to new position.
+            // robot.armPosition  = Range.clip(robot.armPosition, robot.ARM_MIN_RANGE, robot.ARM_MAX_RANGE);
+            //   robot.arm1.setPosition(robot.armPosition);
+
+
+
+            // clawPosition = Range.clip(clawPosition, robot.CLAW_MIN_RANGE, robot.CLAW_MAX_RANGE);
+            robot.clawR.setPosition(1.00-clawPosition);
+            robot.clawL.setPosition(clawPosition);
+
+            /*
             // Use gamepad X & B to open and close the claw
             if (gamepad1.x)
                 clawPosition += CLAW_SPEED;
@@ -119,8 +141,8 @@ public class TestCode9997 extends LinearOpMode {
             // Send telemetry message to signify robot running;
             telemetry.addData("arm",   "%.2f", robot.armPosition);
 //            telemetry.addData("claw",  "%.2f", clawPosition);
-            telemetry.addData("left",  "%.2f", left);
-            telemetry.addData("right", "%.2f", right);
+            //telemetry.addData("left",  "%.2f", left);
+            //telemetry.addData("right", "%.2f", right);
             telemetry.update();
 
             // Pause for metronome tick.  40 mS each cycle = update 25 times a second.

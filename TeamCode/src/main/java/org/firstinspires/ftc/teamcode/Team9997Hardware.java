@@ -6,6 +6,9 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+
 
 /**
  * This is NOT an opmode.
@@ -25,8 +28,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  *
  *
  */
-public class Team9997Hardware
-{
+public class Team9997Hardware {
+
     /* Public OpMode members. */
     public DcMotor  leftMotor   = null;
     public DcMotor  rightMotor  = null;
@@ -71,6 +74,8 @@ public class Team9997Hardware
 
 
     public void init(HardwareMap ahwMap) {
+        double left;
+        double right;
         // save reference to HW Map
         hwMap = ahwMap;
 
@@ -86,21 +91,18 @@ public class Team9997Hardware
         rightMotor.setPower(0);
         liftMotor.setPower(0);
 
-        // Set all motors to run without encoders.
-        // May want to use RUN_USING_ENCODERS if encoders are installed.
-        leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        //rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        // Reset encoders
-        leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        //rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+
+
+
+        // Servos
         // Define and initialize ALL installed servos.
-      //  arm1 = hwMap.servo.get("arm1");
-       // arm1.setPosition(ARM_HOME);
+        //  arm1 = hwMap.servo.get("arm1");
+        // arm1.setPosition(ARM_HOME);
 
 
-         clawL.setPosition(CLAW_HOME);
+        clawL.setPosition(CLAW_HOME);
         clawR.setPosition(CLAW_HOME);
         // Define and initialize ALL installed sensors.
 
@@ -108,6 +110,37 @@ public class Team9997Hardware
         digIn  = hwMap.digitalChannel.get("digin");     //  Use generic form of device mapping
 
     }
+
+    public void enableEncoders(boolean enable){
+
+        if (enable) {
+            // Turn on Encoders
+            rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+            // Reset Encoders
+            rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        }
+
+        else {
+            // Turn off Encoders
+            rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        }
+    }
+
+    public void arcadeDrive(double forward, double sideways){
+        rightMotor.setPower(forward + sideways);
+        leftMotor.setPower(-forward + sideways);
+    }
+
+
+
+
 
     /***
      *

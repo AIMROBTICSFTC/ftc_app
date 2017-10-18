@@ -85,45 +85,41 @@ public class Team9997AutonRed1 extends LinearOpMode {
 
 
 
-        while (robot.color_sensor.alpha() < 20 && (opModeIsActive())) {
-            robot.leftMotor.setPower(robot.FORWARD_SPEED);
-            robot.rightMotor.setPower(robot.FORWARD_SPEED);
-        telemetry.addData("color", Integer.toString(robot.color_sensor.alpha()));
-            telemetry.update();
-        }
-        // Step 1:  Drive forward for 3 seconds
-       // robot.leftMotor.setPower(robot.FORWARD_SPEED);
-       // robot.rightMotor.setPower(robot.FORWARD_SPEED);
-       // runtime.reset();
-      //  while (opModeIsActive() && (runtime.seconds() < 3.0)) {
-           // telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
-           // telemetry.update();
-       // }
 
+        //step 1: move arm and knock off blue jewel then rasise arm
 
-         //Step 2:  Spin right for 1.3 seconds
-      // robot.leftMotor.setPower(robot.TURN_SPEED);
-       // robot.rightMotor.setPower(-robot.TURN_SPEED);
-       // runtime.reset();
-      // while (opModeIsActive() && (runtime.seconds() < 1.3)) {
-
-      //  }
-/*
-        // Step 3:  Drive Backwards for 1 Second
-        robot.leftMotor.setPower(-robot.FORWARD_SPEED);
-        robot.rightMotor.setPower(-robot.FORWARD_SPEED);
+        // Step 2:  Drive forward for 1 seconds
+        robot.leftMotor.setPower(robot.FORWARD_SPEED);
+        robot.rightMotor.setTargetPosition(10);
+        robot.rightMotor.setPower(robot.FORWARD_SPEED);
+        robot.rightMotor.setTargetPosition(10);
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 1.0)) {
-            telemetry.addData("Path", "Leg 3: %2.5f S Elapsed", runtime.seconds());
-            telemetry.update();
+        while (opModeIsActive()) {
+
+    }
+
+
+         //Step 3:  Spin right for 1.3 seconds
+        robot.leftMotor.setPower(-robot.FORWARD_SPEED);
+        robot.rightMotor.setTargetPosition(3);
+        robot.rightMotor.setPower(robot.FORWARD_SPEED);
+        robot.rightMotor.setTargetPosition(3);
+        runtime.reset();
+        while (opModeIsActive()) {
+
         }
 
-        // Step 4:  Stop and close the claw.
-        robot.leftMotor.setPower(0);
-        robot.rightMotor.setPower(0);
-        robot.arm.setPosition(1.0);
-        //robot.rightClaw.setPosition(0.0);
-*/
+        // Step 4: place gliph in correct collum
+        robot.leftMotor.setPower(robot.FORWARD_SPEED);
+        robot.rightMotor.setTargetPosition(1);
+        robot.rightMotor.setPower(robot.FORWARD_SPEED);
+        robot.rightMotor.setTargetPosition(1);
+        runtime.reset();
+        while (opModeIsActive()) {
+
+        }
+
+        //robot.rightClaw.setPosition(0.0);/
       // telemetry.addData("Path", "Complete");
        // telemetry.update();
         sleep(1000000000);

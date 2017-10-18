@@ -91,8 +91,8 @@ public class TestCode9997tank extends LinearOpMode {
            }
 */
 
-            right = gamepad1.right_stick_y;
-            left = -gamepad1.left_stick_y;
+            right = -gamepad1.right_stick_y;
+            left = gamepad1.left_stick_y;
 
 
             robot.leftMotor.setPower(left * Math.abs(left));
