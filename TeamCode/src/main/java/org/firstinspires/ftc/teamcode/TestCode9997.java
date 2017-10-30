@@ -64,8 +64,12 @@ public class TestCode9997 extends LinearOpMode {
         /* Initialize the hardware variables.
          * The init() method of the hardware class does all the work here
          */
+        double lift;
         robot.init(hardwareMap);
         double clawPosition = 0;
+        double hold = 0;
+        double flipPosition = 0;
+        double ext;
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Say", "Hello Driver");    //
         telemetry.update();
@@ -84,23 +88,52 @@ public class TestCode9997 extends LinearOpMode {
                robot.arm1.setPosition(10);
            }
 
-*/
+*/ ext =   -gamepad2.right_stick_y;
+
+            robot.extMotor.setPower(ext * Math.abs(ext));
 
             robot.arcadeDrive(gamepad1.right_stick_y, gamepad1.right_stick_x);
 
+            if (gamepad2.dpad_down && gamepad2.dpad_left){
+                flipPosition = 0;
+            }
+            else if (gamepad2.dpad_up && gamepad1.dpad_right) {
+                flipPosition = 1.0;
 
-            // Use gamepad Y & A raise and lower the arm
-            if (gamepad1.a)
-                robot.armPosition += robot.ARM_SPEED;
-            else if (gamepad1.y)
-                robot.armPosition -= robot.ARM_SPEED;
-            if (gamepad1.a){
+            }
+
+            if (!robot.bottomLimit.getState()){
+                if (gamepad2.left_stick_y > 0){
+                    lift = 0;
+                }
+                else {
+                    lift = -gamepad2.left_stick_y;
+                }
+            } else {
+                lift = -gamepad2.left_stick_y;
+            }
+
+
+            robot.liftMotor.setPower(lift * Math.abs(lift));
+
+
+
+            if (gamepad2.left_bumper){
+                hold = 0.0;
+
+            }
+            else if (gamepad1.right_bumper) {
+                hold = 0.9;
+            }
+
+
+            if (gamepad2.a){
                 clawPosition = 0;
             }
-            else if (gamepad1.b) {
+            else if (gamepad2.b) {
                 clawPosition = 0.5;
 
-            }else if (gamepad1.y) {
+            }else if (gamepad2.y) {
 
                 clawPosition = 1.0;
             }
@@ -119,7 +152,8 @@ public class TestCode9997 extends LinearOpMode {
             // clawPosition = Range.clip(clawPosition, robot.CLAW_MIN_RANGE, robot.CLAW_MAX_RANGE);
             robot.clawR.setPosition(1.00-clawPosition);
             robot.clawL.setPosition(clawPosition);
-
+            robot.flipper.setPosition(flipPosition);
+           robot.grab.setPosition(hold);
             /*
             // Use gamepad X & B to open and close the claw
             if (gamepad1.x)

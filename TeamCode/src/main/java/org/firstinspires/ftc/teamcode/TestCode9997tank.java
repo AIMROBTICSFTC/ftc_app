@@ -35,6 +35,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 /**
+ * gamepad
  * This OpMode uses the common HardwareK9bot class to define the devices on the robot.
  * All device access is managed through the HardwareK9bot class. (See this class for device names)
  * The code is structured as a LinearOpMode
@@ -64,9 +65,10 @@ public class TestCode9997tank extends LinearOpMode {
         double right;
         double arm1;
         double lift;
-
+        double ext;
         double clawPosition = 0;
-
+        double hold = 0;
+        double flipPosition = 0;
         /* Initialize the hardware variables.
          * The init() method of the hardware class does all the work here
          */
@@ -90,6 +92,11 @@ public class TestCode9997tank extends LinearOpMode {
                robot.arm1.setPosition(10);
            }
 */
+         ext = -gamepad2.right_stick_y;
+
+         robot.extMotor.setPower(ext * Math.abs(ext));
+
+
 
             right = -gamepad1.right_stick_y;
             left = gamepad1.left_stick_y;
@@ -99,8 +106,21 @@ public class TestCode9997tank extends LinearOpMode {
             robot.rightMotor.setPower(right * Math.abs(right));
 
 
-            lift = gamepad1.right_trigger -gamepad1.left_trigger;
+            if (!robot.bottomLimit.getState()){
+                if (gamepad2.left_stick_y > 0){
+                    lift = 0;
+                }
+                else {
+                    lift = -gamepad2.left_stick_y;
+                }
+            } else {
+                lift = -gamepad2.left_stick_y;
+            }
+
+
             robot.liftMotor.setPower(lift * Math.abs(lift));
+
+
 
             // Use gamepad Y & A raise and lower the arm
 
@@ -120,19 +140,30 @@ telemetry.addData("claw position is ", clawPosition);
 
 
 
-            if (gamepad1.a){
+            if (gamepad2.a){
                 clawPosition = 0;
             }
-            else if (gamepad1.b) {
+            else if (gamepad2.b) {
                 clawPosition = 0.5;
 
-            }else if (gamepad1.y) {
+            }else if (gamepad2.y) {
 
                 clawPosition = 1.0;
             }
 
+            if (gamepad2.dpad_down){
+                flipPosition = 0;
+            }
+            else if (gamepad2.dpad_up) {
+                flipPosition = 1.0;
 
-
+            }
+            if (gamepad2.left_bumper){
+                hold = 0.0;
+            }
+            else if (gamepad2.right_bumper) {
+                hold = 0.9;
+            }
             telemetry.addData("claw position is ", clawPosition);
 
 
@@ -145,7 +176,8 @@ telemetry.addData("claw position is ", clawPosition);
            // clawPosition = Range.clip(clawPosition, robot.CLAW_MIN_RANGE, robot.CLAW_MAX_RANGE);
             robot.clawR.setPosition(1.00-clawPosition);
             robot.clawL.setPosition(clawPosition);
-
+            robot.flipper.setPosition(flipPosition);
+            robot.grab.setPosition(hold);
             // Send telemetry message to signify robot running;
             telemetry.addData("arm",   "%.2f", robot.armPosition);
 //            telemetry.addData("claw",  "%.2f", clawPosition);
