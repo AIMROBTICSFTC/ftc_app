@@ -37,8 +37,8 @@ public class Team9997Hardware {
     public DcMotor  liftMotor = null;
     public DcMotor  extMotor = null;
 
-    public Servo    clawL         = null;
-    public Servo    clawR         = null;
+    public Servo    clawL = null;
+    public Servo    clawR = null;
     public Servo    grab = null;
     public Servo    flipper = null;
     public ColorSensor color_sensor;
