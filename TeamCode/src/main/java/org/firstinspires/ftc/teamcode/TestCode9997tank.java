@@ -70,7 +70,7 @@ public class TestCode9997tank extends LinearOpMode {
         double hold = 0;
         double flipPosition = 0;
        double flip;
-        final double CLAW_DELTA = 0.1;
+        final double FLIP_DELTA = 0.1;
         /* Initialize the hardware variables.
          * The init() method of the hardware class does all the work here
          */
@@ -154,10 +154,10 @@ telemetry.addData("claw position is ", clawPosition);
             }
 
             if (gamepad2.dpad_down){
-                flipPosition += CLAW_DELTA;
+                flipPosition += FLIP_DELTA;
             }
             else if (gamepad2.dpad_up) {
-                flipPosition -= CLAW_DELTA;
+                flipPosition -= FLIP_DELTA;
 
 
             }
