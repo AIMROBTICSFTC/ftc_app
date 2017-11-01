@@ -70,7 +70,8 @@ public class TestCode9997tank extends LinearOpMode {
         double hold = 0;
         double flipPosition = 0;
        double flip;
-        final double CLAW_DELTA = 0.1;
+        final double FLIP_DELTA = 0.1;
+
         /* Initialize the hardware variables.
          * The init() method of the hardware class does all the work here
          */
@@ -100,12 +101,22 @@ public class TestCode9997tank extends LinearOpMode {
 
 
         //think about a reverse switch
-            right = -gamepad1.right_stick_y;
-            left = gamepad1.left_stick_y;
+           if(gamepad1.a){
+               right = -gamepad1.right_stick_y;
+               left = gamepad1.left_stick_y;
+
+               robot.leftMotor.setPower(left * Math.abs(left));
+               robot.rightMotor.setPower(right * Math.abs(right));
+           }else if(gamepad1.b){
+               right = gamepad1.right_stick_y;
+               left = -gamepad1.left_stick_y;
+
+               robot.leftMotor.setPower(left * Math.abs(left));
+               robot.rightMotor.setPower(right * Math.abs(right));
+           }
 
 
-            robot.leftMotor.setPower(left * Math.abs(left));
-            robot.rightMotor.setPower(right * Math.abs(right));
+
 
 
             if (!robot.bottomLimit.getState()){
@@ -153,11 +164,13 @@ telemetry.addData("claw position is ", clawPosition);
                 clawPosition = 1.0;
             }
 
+            flipPosition = 1.0;
+
             if (gamepad2.dpad_down){
-                flipPosition += CLAW_DELTA;
+                flipPosition += FLIP_DELTA;
             }
             else if (gamepad2.dpad_up) {
-                flipPosition -= CLAW_DELTA;
+                flipPosition -= FLIP_DELTA;
 
 
             }
@@ -185,8 +198,7 @@ telemetry.addData("claw position is ", clawPosition);
             // Send telemetry message to signify robot running;
             telemetry.addData("arm",   "%.2f", robot.armPosition);
 //            telemetry.addData("claw",  "%.2f", clawPosition);
-            telemetry.addData("left",  "%.2f", left);
-            telemetry.addData("right", "%.2f", right);
+
             telemetry.update();
 
             // Pause for metronome tick.  40 mS each cycle = update 25 times a second.
