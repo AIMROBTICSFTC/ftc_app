@@ -69,6 +69,7 @@ public class TestCode9997tank extends LinearOpMode {
         double clawPosition = 0;
         double hold = 0;
         double flipPosition = 0;
+       double flip;
         /* Initialize the hardware variables.
          * The init() method of the hardware class does all the work here
          */
@@ -97,7 +98,7 @@ public class TestCode9997tank extends LinearOpMode {
          robot.extMotor.setPower(ext * Math.abs(ext));
 
 
-
+        //think about a reverse switch
             right = -gamepad1.right_stick_y;
             left = gamepad1.left_stick_y;
 
@@ -156,8 +157,9 @@ telemetry.addData("claw position is ", clawPosition);
             }
             else if (gamepad2.dpad_up) {
                 flipPosition = 1.0;
-
+            
             }
+
             if (gamepad2.left_bumper){
                 hold = 0.0;
             }
