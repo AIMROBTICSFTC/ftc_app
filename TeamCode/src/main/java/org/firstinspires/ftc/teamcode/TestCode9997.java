@@ -70,6 +70,8 @@ public class TestCode9997 extends LinearOpMode {
         double hold = 0;
         double flipPosition = 0;
         double ext;
+        double reverse = 1;
+        final double FLIP_DELTA = 0.1;
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Say", "Hello Driver");    //
         telemetry.update();
@@ -91,14 +93,26 @@ public class TestCode9997 extends LinearOpMode {
 */ ext =   -gamepad2.right_stick_y;
 
             robot.extMotor.setPower(ext * Math.abs(ext));
+            if (gamepad1.a) {
+                reverse = 1;
+            } else if(gamepad1.b){
+                reverse = 0;
+            }
+//think about a reverse switch
 
+
+            if (reverse == 1) {
+                robot.arcadeDrive(gamepad1.right_stick_y, gamepad1.right_stick_x);
+            } else if (reverse == 0) {
+                robot.arcadeDrive(-gamepad1.right_stick_y, -gamepad1.right_stick_x);
+            }
             robot.arcadeDrive(gamepad1.right_stick_y, gamepad1.right_stick_x);
 
-            if (gamepad2.dpad_down && gamepad2.dpad_left){
-                flipPosition = 0;
-            }
-            else if (gamepad2.dpad_up && gamepad1.dpad_right) {
-                flipPosition = 1.0;
+            if (gamepad2.dpad_up) {
+                flipPosition += FLIP_DELTA;
+            } else if (gamepad2.dpad_down) {
+                flipPosition -= FLIP_DELTA;
+
 
             }
 

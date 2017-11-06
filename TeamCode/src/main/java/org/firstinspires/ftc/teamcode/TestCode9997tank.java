@@ -75,6 +75,11 @@ public class TestCode9997tank extends LinearOpMode {
         double hold = 0;
         double flipPosition = 0;
         double flip;
+<<<<<<< HEAD
+=======
+        final double FLIP_DELTA = 0.01;
+
+>>>>>>> 743340fa5a8f273036adabf98504cab54cee6a46
         double reverse = 1;
 
         /* Initialize the hardware variables.
@@ -92,14 +97,7 @@ public class TestCode9997tank extends LinearOpMode {
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
 
-            // Run wheels in tank mode (note: The joystick goes negative when pushed forwards, so negate it)
-         /*  if (gamepad1.right_trigger > 0){
-               robot.arm1.setPosition(100);
-           }
-              else{
-               robot.arm1.setPosition(10);
-           }
-*/
+
             ext = -gamepad2.right_stick_y;
 
             robot.extMotor.setPower(ext * Math.abs(ext));
@@ -179,6 +177,7 @@ telemetry.addData("claw position is ", clawPosition);
 
                     robot.flip.setPosition(FLIP_POS);
 
+<<<<<<< HEAD
                 }
                 else if (gamepad2.left_bumper){
                     FLIP_POS = FLIPTEMP;
@@ -188,6 +187,14 @@ telemetry.addData("claw position is ", clawPosition);
                 }
 
 
+=======
+                if (gamepad2.dpad_up) {
+                    flipPosition =+ FLIP_DELTA;
+
+                } else if (gamepad2.dpad_down) {
+                    flipPosition =- FLIP_DELTA;
+                }
+>>>>>>> 743340fa5a8f273036adabf98504cab54cee6a46
 
                 telemetry.addData("claw position is ", clawPosition);
 

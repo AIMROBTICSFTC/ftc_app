@@ -45,8 +45,10 @@ public class Team9997Hardware {
     public ColorSensor colorRight;
     public ColorSensor colorLeft;
     public ColorSensor colorArm;
+    public Servo arm = null;
 
     public DigitalChannel bottomLimit;
+
 
     // Initalize start values and range settings
     public final double ARM_HOME = 0.2;
