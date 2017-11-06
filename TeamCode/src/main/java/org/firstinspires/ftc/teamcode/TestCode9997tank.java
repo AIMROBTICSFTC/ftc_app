@@ -75,10 +75,9 @@ public class TestCode9997tank extends LinearOpMode {
         double clawPosition = 0;
         double hold = 0;
         double flipPosition = 0;
-<<<<<<< HEAD
+
         double flip;
-=======
->>>>>>> 1ab7a88fe3472a7d8fcb0e14976e9d287bf31c2a
+
 
 
         final double FLIP_DELTA = 0.01;
@@ -178,24 +177,17 @@ telemetry.addData("claw position is ", clawPosition);
 
                     robot.flipper.setPosition(FLIP_POS);
 
-
-<<<<<<< HEAD
                 }
                 else if (gamepad2.left_bumper){
-=======
+
                 } else if (gamepad2.dpad_up) {
->>>>>>> 1ab7a88fe3472a7d8fcb0e14976e9d287bf31c2a
+
                     FLIP_POS = FLIPTEMP;
                     FLIP_POS = FLIPTEMP -= Flip_DELTA;
                     //FLIP_POS = Range.clip(FLIP_POS, 0.0,1.0);
                     robot.flipper.setPosition(FLIP_POS);
                 }
 
-
-<<<<<<< HEAD
-
-=======
->>>>>>> 1ab7a88fe3472a7d8fcb0e14976e9d287bf31c2a
                 if (gamepad2.dpad_up) {
                     flipPosition = +FLIP_DELTA;
 
