@@ -56,7 +56,12 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 //@Disabled
 public class TestCode9997tank extends LinearOpMode {
 
-
+    private double TOP = 0.9;
+    private double MID = 0.5;
+    private double BOT = 0.0;
+    private double Flip_DELTA = 0.01;
+    private double FLIP_POS;
+    private double FLIPTEMP;
     Team9997Hardware robot  = new Team9997Hardware();
 
     @Override
@@ -70,7 +75,6 @@ public class TestCode9997tank extends LinearOpMode {
         double hold = 0;
         double flipPosition = 0;
         double flip;
-        final double FLIP_DELTA = 0.1;
         double reverse = 1;
 
         /* Initialize the hardware variables.
@@ -151,33 +155,40 @@ public class TestCode9997tank extends LinearOpMode {
 telemetry.addData("claw position is ", clawPosition);
 
 * */
+            while (opModeIsActive()) {
 
+                robot.arcadeDrive(-gamepad1.right_stick_y,gamepad1.right_stick_x);
 
-                if (gamepad2.a) {
-                    clawPosition = 0;
-                } else if (gamepad2.b) {
-                    clawPosition = 0.5;
+                robot.liftMotor.setPower(gamepad2.left_stick_y);
 
-                } else if (gamepad2.y) {
+                if (gamepad2.a){
+                    FLIP_POS = TOP;
+                    robot.flip.setPosition(FLIP_POS);
+                }
+                else if (gamepad2.b){
+                    FLIP_POS = MID;
+                    robot.flip.setPosition(FLIP_POS);
+                }
+                else if (gamepad2.x){
+                    FLIP_POS = BOT;
+                    robot.flip.setPosition(FLIP_POS);
+                }
+                else if (gamepad2.right_bumper){
+                    FLIP_POS = FLIPTEMP;
+                    FLIP_POS = (FLIPTEMP += Flip_DELTA);
 
-                    clawPosition = 1.0;
+                    robot.flip.setPosition(FLIP_POS);
+
+                }
+                else if (gamepad2.left_bumper){
+                    FLIP_POS = FLIPTEMP;
+                    FLIP_POS = FLIPTEMP -= Flip_DELTA;
+                    //FLIP_POS = Range.clip(FLIP_POS, 0.0,1.0);
+                    robot.flip.setPosition(FLIP_POS);
                 }
 
-                flipPosition = 1.0;
-
-                if (gamepad2.dpad_down) {
-                    flipPosition += FLIP_DELTA;
-                } else if (gamepad2.dpad_up) {
-                    flipPosition -= FLIP_DELTA;
 
 
-                }
-
-                if (gamepad2.left_bumper) {
-                    hold = 0.0;
-                } else if (gamepad2.right_bumper) {
-                    hold = 0.9;
-                }
                 telemetry.addData("claw position is ", clawPosition);
 
 
