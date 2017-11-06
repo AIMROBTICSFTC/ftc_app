@@ -62,6 +62,7 @@ public class TestCode9997tank extends LinearOpMode {
     private double Flip_DELTA = 0.01;
     private double FLIP_POS;
     private double FLIPTEMP;
+    private double flip = 0;
     Team9997Hardware robot  = new Team9997Hardware();
 
     @Override
@@ -74,7 +75,10 @@ public class TestCode9997tank extends LinearOpMode {
         double clawPosition = 0;
         double hold = 0;
         double flipPosition = 0;
+<<<<<<< HEAD
         double flip;
+=======
+>>>>>>> 1ab7a88fe3472a7d8fcb0e14976e9d287bf31c2a
 
 
         final double FLIP_DELTA = 0.01;
@@ -104,45 +108,45 @@ public class TestCode9997tank extends LinearOpMode {
 
             if (gamepad1.a) {
                 reverse = 1;
-} else if(gamepad1.b){
-                 reverse = 0;
-}
+            } else if (gamepad1.b) {
+                reverse = 0;
+            }
 //think about a reverse switch
 
 
-                if (reverse == 1) {
-                    right = -gamepad1.right_stick_y;
-                    left = gamepad1.left_stick_y;
+            if (reverse == 1) {
+                right = -gamepad1.right_stick_y;
+                left = gamepad1.left_stick_y;
 
-                    robot.leftMotor.setPower(left * Math.abs(left));
-                    robot.rightMotor.setPower(right * Math.abs(right));
-                } else if (reverse == 0) {
-                    right = gamepad1.right_stick_y;
-                    left = -gamepad1.left_stick_y;
+                robot.leftMotor.setPower(left * Math.abs(left));
+                robot.rightMotor.setPower(right * Math.abs(right));
+            } else if (reverse == 0) {
+                right = gamepad1.right_stick_y;
+                left = -gamepad1.left_stick_y;
 
-                    robot.leftMotor.setPower(left * Math.abs(left));
-                    robot.rightMotor.setPower(right * Math.abs(right));
-                }
+                robot.leftMotor.setPower(left * Math.abs(left));
+                robot.rightMotor.setPower(right * Math.abs(right));
+            }
 
 
-                if (!robot.bottomLimit.getState()) {
-                    if (gamepad2.left_stick_y > 0) {
-                        lift = 0;
-                    } else {
-                        lift = -gamepad2.left_stick_y;
-                    }
+            if (!robot.bottomLimit.getState()) {
+                if (gamepad2.left_stick_y > 0) {
+                    lift = 0;
                 } else {
                     lift = -gamepad2.left_stick_y;
                 }
+            } else {
+                lift = -gamepad2.left_stick_y;
+            }
 
 
-                robot.liftMotor.setPower(lift * Math.abs(lift));
+            robot.liftMotor.setPower(lift * Math.abs(lift));
 
 
-                // Use gamepad Y & A raise and lower the arm
+            // Use gamepad Y & A raise and lower the arm
 
 
-                // Use gamepad X & B to open and close the claw
+            // Use gamepad X & B to open and close the claw
 /*
 *  if (gamepad1.left_bumper){
                 clawPosition += robot.CLAW_SPEED;
@@ -155,44 +159,48 @@ telemetry.addData("claw position is ", clawPosition);
 * */
             while (opModeIsActive()) {
 
-                robot.arcadeDrive(-gamepad1.right_stick_y,gamepad1.right_stick_x);
+                robot.arcadeDrive(-gamepad1.right_stick_y, gamepad1.right_stick_x);
 
                 robot.liftMotor.setPower(gamepad2.left_stick_y);
 
-                if (gamepad2.a){
+                if (gamepad2.a) {
                     FLIP_POS = TOP;
-                    robot.flip.setPosition(FLIP_POS);
-                }
-                else if (gamepad2.b){
+                    robot.flipper.setPosition(FLIP_POS);
+                } else if (gamepad2.b) {
                     FLIP_POS = MID;
-                    robot.flip.setPosition(FLIP_POS);
-                }
-                else if (gamepad2.x){
+                    robot.flipper.setPosition(FLIP_POS);
+                } else if (gamepad2.x) {
                     FLIP_POS = BOT;
-                    robot.flip.setPosition(FLIP_POS);
-                }
-                else if (gamepad2.right_bumper){
+                    robot.flipper.setPosition(FLIP_POS);
+                } else if (gamepad2.dpad_down) {
                     FLIP_POS = FLIPTEMP;
                     FLIP_POS = (FLIPTEMP += Flip_DELTA);
 
-                    robot.flip.setPosition(FLIP_POS);
+                    robot.flipper.setPosition(FLIP_POS);
 
 
+<<<<<<< HEAD
                 }
                 else if (gamepad2.left_bumper){
+=======
+                } else if (gamepad2.dpad_up) {
+>>>>>>> 1ab7a88fe3472a7d8fcb0e14976e9d287bf31c2a
                     FLIP_POS = FLIPTEMP;
                     FLIP_POS = FLIPTEMP -= Flip_DELTA;
                     //FLIP_POS = Range.clip(FLIP_POS, 0.0,1.0);
-                    robot.flip.setPosition(FLIP_POS);
+                    robot.flipper.setPosition(FLIP_POS);
                 }
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1ab7a88fe3472a7d8fcb0e14976e9d287bf31c2a
                 if (gamepad2.dpad_up) {
-                    flipPosition =+ FLIP_DELTA;
+                    flipPosition = +FLIP_DELTA;
 
                 } else if (gamepad2.dpad_down) {
-                    flipPosition =- FLIP_DELTA;
+                    flipPosition = -FLIP_DELTA;
                 }
 
 
@@ -219,4 +227,5 @@ telemetry.addData("claw position is ", clawPosition);
                 robot.waitForTick(40);
             }
         }
+    }
     }
