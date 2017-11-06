@@ -114,7 +114,7 @@ public class PushbotAutoDriveByEncoder_Linear extends LinearOpMode {
         robot.clawR.setPosition(1.0);
         sleep(1000);
 
-        encoderDrive(DRIVE_SPEED,  48,  48, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
+        encoderDrive(DRIVE_SPEED,  -41,  41, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
        // encoderDrive(TURN_SPEED,   12, -12, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
 
 
@@ -122,7 +122,7 @@ public class PushbotAutoDriveByEncoder_Linear extends LinearOpMode {
         robot.clawR.setPosition(0.5);
         sleep(1000);     // pause for servos to move
 
-        encoderDrive(DRIVE_SPEED, -48, -48, 5.0);//move back on to balencing platfrm
+        encoderDrive(DRIVE_SPEED, 41, -41, 5.0);//move back on to balencing platfrm
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
