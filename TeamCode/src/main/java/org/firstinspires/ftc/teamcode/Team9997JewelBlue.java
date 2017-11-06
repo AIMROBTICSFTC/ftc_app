@@ -83,11 +83,11 @@ public class Team9997JewelBlue extends LinearOpMode {
 
 
 
-        robot.color_sensor.red();   // Red channel value
-        robot.color_sensor.green(); // Green channel value
-        robot.color_sensor.blue();  // Blue channel value
-        robot.color_sensor.alpha(); // Total luminosity
-        robot.color_sensor.argb();  // Combined color valu
+       // robot.color_sensor.red();   // Red channel value
+        //robot.color_sensor.green(); // Green channel value
+       // robot.color_sensor.blue();  // Blue channel value
+       // robot.color_sensor.alpha(); // Total luminosity
+       // robot.color_sensor.argb();  // Combined color valu
 
 
 
@@ -98,18 +98,18 @@ public class Team9997JewelBlue extends LinearOpMode {
         while (opModeIsActive()) {
 
 
-            telemetry.addData("RED", robot.color_sensor.red());
-            telemetry.addData("GREEN", robot.color_sensor.green());
-            telemetry.addData("BLUE", robot.color_sensor.blue());
-            telemetry.addData("ALPHA", robot.color_sensor.alpha());
-            telemetry.addData("ARGB", robot.color_sensor.argb());//
-            telemetry.update();
-            if (robot.color_sensor.alpha() < 400 ) {
-                robot.leftMotor.setPower(robot.FORWARD_SPEED);
-                robot.rightMotor.setPower(robot.FORWARD_SPEED);
-                telemetry.addData("color", Integer.toString(robot.color_sensor.alpha()));
+          //  telemetry.addData("RED", robot.color_sensor.red());
+           // telemetry.addData("GREEN", robot.color_sensor.green());
+           // telemetry.addData("BLUE", robot.color_sensor.blue());
+           // telemetry.addData("ALPHA", robot.color_sensor.alpha());
+           // telemetry.addData("ARGB", robot.color_sensor.argb());//
+           // telemetry.update();
+           // if (robot.color_sensor.alpha() < 400 ) {
+               // robot.leftMotor.setPower(robot.FORWARD_SPEED);
+                //robot.rightMotor.setPower(robot.FORWARD_SPEED);
+                //telemetry.addData("color", Integer.toString(robot.color_sensor.alpha()));
                 telemetry.update();
-            } else {
+           // } else {
 
                 robot.leftMotor.setPower(0);
                 robot.rightMotor.setPower(0);
@@ -117,10 +117,10 @@ public class Team9997JewelBlue extends LinearOpMode {
         }
 
 
-        telemetry.addData("Path", "STOP");
-        telemetry.update();
+       // telemetry.addData("Path", "STOP");
+       // telemetry.update();
         //sleep(1000);
         //idle();
 
     }
-}
+//}

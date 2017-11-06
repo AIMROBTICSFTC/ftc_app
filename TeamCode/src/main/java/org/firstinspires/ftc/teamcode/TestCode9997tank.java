@@ -35,6 +35,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 /**
+ * gamepad
  * This OpMode uses the common HardwareK9bot class to define the devices on the robot.
  * All device access is managed through the HardwareK9bot class. (See this class for device names)
  * The code is structured as a LinearOpMode
@@ -64,8 +65,14 @@ public class TestCode9997tank extends LinearOpMode {
         double right;
         double arm1;
         double lift;
-
+        double ext;
         double clawPosition = 0;
+        double hold = 0;
+        double flipPosition = 0;
+        double flip;
+        final double FLIP_DELTA = 0.01;
+
+        double reverse = 1;
 
         /* Initialize the hardware variables.
          * The init() method of the hardware class does all the work here
@@ -82,31 +89,52 @@ public class TestCode9997tank extends LinearOpMode {
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
 
-            // Run wheels in tank mode (note: The joystick goes negative when pushed forwards, so negate it)
-         /*  if (gamepad1.right_trigger > 0){
-               robot.arm1.setPosition(100);
-           }
-              else{
-               robot.arm1.setPosition(10);
-           }
-*/
 
-            right = -gamepad1.right_stick_y;
-            left = gamepad1.left_stick_y;
+            ext = -gamepad2.right_stick_y;
 
+            robot.extMotor.setPower(ext * Math.abs(ext));
 
-            robot.leftMotor.setPower(left * Math.abs(left));
-            robot.rightMotor.setPower(right * Math.abs(right));
+            if (gamepad1.a) {
+                reverse = 1;
+} else if(gamepad1.b){
+                 reverse = 0;
+}
+//think about a reverse switch
 
 
-            lift = gamepad1.right_trigger -gamepad1.left_trigger;
-            robot.liftMotor.setPower(lift * Math.abs(lift));
+                if (reverse == 1) {
+                    right = -gamepad1.right_stick_y;
+                    left = gamepad1.left_stick_y;
 
-            // Use gamepad Y & A raise and lower the arm
+                    robot.leftMotor.setPower(left * Math.abs(left));
+                    robot.rightMotor.setPower(right * Math.abs(right));
+                } else if (reverse == 0) {
+                    right = gamepad1.right_stick_y;
+                    left = -gamepad1.left_stick_y;
+
+                    robot.leftMotor.setPower(left * Math.abs(left));
+                    robot.rightMotor.setPower(right * Math.abs(right));
+                }
 
 
+                if (!robot.bottomLimit.getState()) {
+                    if (gamepad2.left_stick_y > 0) {
+                        lift = 0;
+                    } else {
+                        lift = -gamepad2.left_stick_y;
+                    }
+                } else {
+                    lift = -gamepad2.left_stick_y;
+                }
 
-            // Use gamepad X & B to open and close the claw
+
+                robot.liftMotor.setPower(lift * Math.abs(lift));
+
+
+                // Use gamepad Y & A raise and lower the arm
+
+
+                // Use gamepad X & B to open and close the claw
 /*
 *  if (gamepad1.left_bumper){
                 clawPosition += robot.CLAW_SPEED;
@@ -119,42 +147,51 @@ telemetry.addData("claw position is ", clawPosition);
 * */
 
 
+                if (gamepad2.a) {
+                    clawPosition = 0;
+                } else if (gamepad2.b) {
+                    clawPosition = 0.5;
 
-            if (gamepad1.a){
-                clawPosition = 0;
-            }
-            else if (gamepad1.b) {
-                clawPosition = 0.5;
+                } else if (gamepad2.y) {
 
-            }else if (gamepad1.y) {
+                    clawPosition = 1.0;
+                }
 
-                clawPosition = 1.0;
-            }
+                flipPosition = 1.0;
+
+                if (gamepad2.dpad_up) {
+                    flipPosition =+ FLIP_DELTA;
+
+                } else if (gamepad2.dpad_down) {
+                    flipPosition =- FLIP_DELTA;
+                }
+
+                if (gamepad2.left_bumper) {
+                    hold = 0.0;
+                } else if (gamepad2.right_bumper) {
+                    hold = 0.9;
+                }
+                telemetry.addData("claw position is ", clawPosition);
 
 
-
-            telemetry.addData("claw position is ", clawPosition);
-
-
-            // Move both servos to new position.
-           // robot.armPosition  = Range.clip(robot.armPosition, robot.ARM_MIN_RANGE, robot.ARM_MAX_RANGE);
-         //   robot.arm1.setPosition(robot.armPosition);
+                // Move both servos to new position.
+                // robot.armPosition  = Range.clip(robot.armPosition, robot.ARM_MIN_RANGE, robot.ARM_MAX_RANGE);
+                //   robot.arm1.setPosition(robot.armPosition);
 
 
-
-           // clawPosition = Range.clip(clawPosition, robot.CLAW_MIN_RANGE, robot.CLAW_MAX_RANGE);
-            robot.clawR.setPosition(1.00-clawPosition);
-            robot.clawL.setPosition(clawPosition);
-
-            // Send telemetry message to signify robot running;
-            telemetry.addData("arm",   "%.2f", robot.armPosition);
+                // clawPosition = Range.clip(clawPosition, robot.CLAW_MIN_RANGE, robot.CLAW_MAX_RANGE);
+                robot.clawR.setPosition(1.00 - clawPosition);
+                robot.clawL.setPosition(clawPosition);
+                robot.flipper.setPosition(flipPosition);
+                robot.grab.setPosition(hold);
+                // Send telemetry message to signify robot running;
+                telemetry.addData("arm", "%.2f", robot.armPosition);
 //            telemetry.addData("claw",  "%.2f", clawPosition);
-            telemetry.addData("left",  "%.2f", left);
-            telemetry.addData("right", "%.2f", right);
-            telemetry.update();
 
-            // Pause for metronome tick.  40 mS each cycle = update 25 times a second.
-            robot.waitForTick(40);
+                telemetry.update();
+
+                // Pause for metronome tick.  40 mS each cycle = update 25 times a second.
+                robot.waitForTick(40);
+            }
         }
     }
-}

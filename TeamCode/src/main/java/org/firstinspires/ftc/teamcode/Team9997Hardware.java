@@ -30,17 +30,25 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
  */
 public class Team9997Hardware {
 
-    /* Public OpMode members. */
+    /* Public OpMode members.
+ */
     public DcMotor  leftMotor   = null;
     public DcMotor  rightMotor  = null;
     public DcMotor  liftMotor = null;
     public DcMotor  extMotor = null;
 
-    public Servo    clawL         = null;
-    public Servo    clawR         = null;
+    public Servo    clawL = null;
+    public Servo    clawR = null;
     public Servo    grab = null;
+    public Servo    flipper = null;
     public ColorSensor color_sensor;
-    public DigitalChannel digIn;
+    public ColorSensor colorRight;
+    public ColorSensor colorLeft;
+    public ColorSensor colorArm;
+    public Servo arm = null;
+
+    public DigitalChannel bottomLimit;
+
 
     // Initalize start values and range settings
     public final double ARM_HOME = 0.2;
@@ -59,8 +67,8 @@ public class Team9997Hardware {
     private final double     DRIVE_GEAR_REDUCTION    = 2.0 ;     // This is < 1.0 if geared UP
     private final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
     public final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
-                                                        (WHEEL_DIAMETER_INCHES * 3.1415);
-
+            (WHEEL_DIAMETER_INCHES * 3.1415);
+public double reverse;
 
     /* Local OpMode members. */
     HardwareMap hwMap  = null;
@@ -76,6 +84,7 @@ public class Team9997Hardware {
     public void init(HardwareMap ahwMap) {
         double left;
         double right;
+        double ext;
         // save reference to HW Map
         hwMap = ahwMap;
 
@@ -83,9 +92,12 @@ public class Team9997Hardware {
         leftMotor   = hwMap.dcMotor.get("ld");
         liftMotor   = hwMap.dcMotor.get("lift");
         rightMotor  = hwMap.dcMotor.get("rd");
+        extMotor = hwMap.dcMotor.get("ext");
         leftMotor.setDirection(DcMotor.Direction.REVERSE); //commented out for encoder
             clawR = hwMap.servo.get("clawR");
         clawL = hwMap.servo.get("clawL");
+       flipper = hwMap.servo.get("flip");
+        grab = hwMap.servo.get("grab");
         // Set all motors to zero power
         leftMotor.setPower(0);
         rightMotor.setPower(0);
@@ -105,9 +117,12 @@ public class Team9997Hardware {
         clawL.setPosition(CLAW_HOME);
         clawR.setPosition(CLAW_HOME);
         // Define and initialize ALL installed sensors.
-
         color_sensor = hwMap.colorSensor.get("color"); // uncomment to use color sensor,add too config
-        digIn  = hwMap.digitalChannel.get("digin");     //  Use generic form of device mapping
+        colorArm = hwMap.colorSensor.get("ca");
+        colorLeft = hwMap.colorSensor.get("cl");
+        colorRight = hwMap.colorSensor.get("cr");
+
+        bottomLimit  = hwMap.digitalChannel.get("limit");     //  Use generic form of device mapping
 
     }
 
@@ -134,8 +149,8 @@ public class Team9997Hardware {
     }
 
     public void arcadeDrive(double forward, double sideways){
-        rightMotor.setPower(forward + sideways);
-        leftMotor.setPower(-forward + sideways);
+        rightMotor.setPower(-forward + sideways);
+        leftMotor.setPower(forward + sideways);
     }
 
 
