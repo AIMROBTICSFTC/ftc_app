@@ -73,6 +73,16 @@ public class TestCode9997tank extends LinearOpMode {
         double hold = 0;
         double flipPosition = 0;
 
+<<<<<<< HEAD
+=======
+        double flip;
+
+
+
+        final double FLIP_DELTA = 0.01;
+
+
+>>>>>>> c8fb0bdad2b0993850ea5c858eeb17ccf6359757
         double reverse = 1;
 
         /* Initialize the hardware variables.
@@ -184,12 +194,49 @@ telemetry.addData("claw position is ", clawPosition);
             //   robot.arm1.setPosition(robot.armPosition);
 
 
+<<<<<<< HEAD
             // clawPosition = Range.clip(clawPosition, robot.CLAW_MIN_RANGE, robot.CLAW_MAX_RANGE);
             robot.clawR.setPosition(1.00 - clawPosition);
             robot.clawL.setPosition(clawPosition);
             robot.grab.setPosition(hold);
             // Send telemetry message to signify robot running;
             telemetry.addData("arm", "%.2f", robot.armPosition);
+=======
+                }
+                else if (gamepad2.left_bumper){
+
+                } else if (gamepad2.dpad_up) {
+
+                    FLIP_POS = FLIPTEMP;
+                    FLIP_POS = FLIPTEMP -= Flip_DELTA;
+                    //FLIP_POS = Range.clip(FLIP_POS, 0.0,1.0);
+                    robot.flipper.setPosition(FLIP_POS);
+                }
+
+                if (gamepad2.dpad_up) {
+                    flipPosition = +FLIP_DELTA;
+
+                } else if (gamepad2.dpad_down) {
+                    flipPosition = -FLIP_DELTA;
+                }
+
+
+                telemetry.addData("claw position is ", clawPosition);
+
+
+                // Move both servos to new position.
+                // robot.armPosition  = Range.clip(robot.armPosition, robot.ARM_MIN_RANGE, robot.ARM_MAX_RANGE);
+                //   robot.arm1.setPosition(robot.armPosition);
+
+
+                // clawPosition = Range.clip(clawPosition, robot.CLAW_MIN_RANGE, robot.CLAW_MAX_RANGE);
+                robot.clawR.setPosition(1.00 - clawPosition);
+                robot.clawL.setPosition(clawPosition);
+                robot.flipper.setPosition(flipPosition);
+                robot.grab.setPosition(hold);
+                // Send telemetry message to signify robot running;
+                telemetry.addData("arm", "%.2f", robot.armPosition);
+>>>>>>> c8fb0bdad2b0993850ea5c858eeb17ccf6359757
 //            telemetry.addData("claw",  "%.2f", clawPosition);
 
             telemetry.update();
