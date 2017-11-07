@@ -60,6 +60,7 @@ public class TestCode9997tank extends LinearOpMode {
     private double BOT = 0.0;
     private double Flip_DELTA = 0.01;
     private double FLIP_POS;
+    private double FLIPTEMP;
     Team9997Hardware robot = new Team9997Hardware();
 
     @Override
@@ -72,17 +73,11 @@ public class TestCode9997tank extends LinearOpMode {
         double clawPosition = 0;
         double hold = 0;
         double flipPosition = 0;
-
-<<<<<<< HEAD
-=======
         double flip;
 
 
 
         final double FLIP_DELTA = 0.01;
-
-
->>>>>>> c8fb0bdad2b0993850ea5c858eeb17ccf6359757
         double reverse = 1;
 
         /* Initialize the hardware variables.
@@ -193,17 +188,15 @@ telemetry.addData("claw position is ", clawPosition);
             // robot.armPosition  = Range.clip(robot.armPosition, robot.ARM_MIN_RANGE, robot.ARM_MAX_RANGE);
             //   robot.arm1.setPosition(robot.armPosition);
 
-
-<<<<<<< HEAD
             // clawPosition = Range.clip(clawPosition, robot.CLAW_MIN_RANGE, robot.CLAW_MAX_RANGE);
             robot.clawR.setPosition(1.00 - clawPosition);
             robot.clawL.setPosition(clawPosition);
             robot.grab.setPosition(hold);
             // Send telemetry message to signify robot running;
             telemetry.addData("arm", "%.2f", robot.armPosition);
-=======
+
                 }
-                else if (gamepad2.left_bumper){
+                if (gamepad2.left_bumper){
 
                 } else if (gamepad2.dpad_up) {
 
@@ -236,7 +229,6 @@ telemetry.addData("claw position is ", clawPosition);
                 robot.grab.setPosition(hold);
                 // Send telemetry message to signify robot running;
                 telemetry.addData("arm", "%.2f", robot.armPosition);
->>>>>>> c8fb0bdad2b0993850ea5c858eeb17ccf6359757
 //            telemetry.addData("claw",  "%.2f", clawPosition);
 
             telemetry.update();
@@ -245,7 +237,6 @@ telemetry.addData("claw position is ", clawPosition);
             robot.waitForTick(40);
         }
     }
-}
 
 
 
