@@ -39,31 +39,28 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
  * This OpMode uses the common HardwareK9bot class to define the devices on the robot.
  * All device access is managed through the HardwareK9bot class. (See this class for device names)
  * The code is structured as a LinearOpMode
- *
+ * <p>
  * This particular OpMode executes a basic Tank Drive Teleop for the K9 bot
  * It raises and lowers the arm using the Gampad Y and A buttons respectively.
  * It also opens and closes the claw slowly using the X and B buttons.
- *
+ * <p>
  * Note: the configuration of the servos is such that
  * as the arm servo approaches 0, the arm position moves up (away from the floor).
  * Also, as the claw servo approaches 0, the claw opens up (drops the game element).
- *
+ * <p>
  * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="9997TankDrive", group="9997")
+@TeleOp(name = "9997TankDrive", group = "9997")
 //@Disabled
 public class TestCode9997tank extends LinearOpMode {
 
     private double TOP = 0.9;
-    private double MID = 0.5;
     private double BOT = 0.0;
     private double Flip_DELTA = 0.01;
     private double FLIP_POS;
-    private double FLIPTEMP;
-    private double flip = 0;
-    Team9997Hardware robot  = new Team9997Hardware();
+    Team9997Hardware robot = new Team9997Hardware();
 
     @Override
     public void runOpMode() {
@@ -76,19 +73,15 @@ public class TestCode9997tank extends LinearOpMode {
         double hold = 0;
         double flipPosition = 0;
 
-
-        final double FLIP_DELTA = 0.01;
-
-
         double reverse = 1;
 
         /* Initialize the hardware variables.
-         * The init() method of the hardware class does all the work here
+           The init() method of the hardware class does all the work here
          */
         robot.init(hardwareMap);
 
         // Send telemetry message to signify robot waiting;
-        telemetry.addData("Say", "Hello Driver");    //
+        telemetry.addData("Say", "Hello Driver, I'm waiting!");    //
         telemetry.update();
 
         // Wait for the game to start (driver presses PLAY)
@@ -96,7 +89,6 @@ public class TestCode9997tank extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
-
 
             ext = -gamepad2.right_stick_y;
 
@@ -124,6 +116,19 @@ public class TestCode9997tank extends LinearOpMode {
                 robot.rightMotor.setPower(right * Math.abs(right));
             }
 
+            if (gamepad2.right_bumper) {
+                hold = 0.0;
+            } else if (gamepad2.left_bumper) {
+                hold = 1.0;
+            }
+
+            if (gamepad2.y) {
+                clawPosition = 1.0;
+            } else if (gamepad2.b) {
+                clawPosition = 0.5;
+            } else if (gamepad2.a) {
+                clawPosition = 0.0;
+            }
 
             if (!robot.bottomLimit.getState()) {
                 if (gamepad2.left_stick_y > 0) {
@@ -133,6 +138,25 @@ public class TestCode9997tank extends LinearOpMode {
                 }
             } else {
                 lift = -gamepad2.left_stick_y;
+            }
+
+
+            if (gamepad2.dpad_up) {
+                FLIP_POS = TOP;
+                robot.flipper.setPosition(FLIP_POS);
+            } else if (gamepad2.dpad_down) {
+                FLIP_POS = BOT;
+                robot.flipper.setPosition(FLIP_POS);
+            }
+            if (FLIP_POS == 0.11 - 0.9) {
+                if (gamepad2.dpad_left) {
+                    FLIP_POS += Flip_DELTA;
+                    robot.flipper.setPosition(FLIP_POS);
+                } else if (gamepad2.dpad_right) {
+                    FLIP_POS -= Flip_DELTA;
+                    //FLIP_POS = Range.clip(FLIP_POS, 0.0,1.0);
+                    robot.flipper.setPosition(FLIP_POS);
+                }
             }
 
 
@@ -153,66 +177,28 @@ public class TestCode9997tank extends LinearOpMode {
 telemetry.addData("claw position is ", clawPosition);
 
 * */
-            while (opModeIsActive()) {
-
-                robot.arcadeDrive(-gamepad1.right_stick_y, gamepad1.right_stick_x);
-
-                robot.liftMotor.setPower(gamepad2.left_stick_y);
-
-                if (gamepad2.a) {
-                    FLIP_POS = TOP;
-                    robot.flipper.setPosition(FLIP_POS);
-                } else if (gamepad2.b) {
-                    FLIP_POS = MID;
-                    robot.flipper.setPosition(FLIP_POS);
-                } else if (gamepad2.x) {
-                    FLIP_POS = BOT;
-                    robot.flipper.setPosition(FLIP_POS);
-                } else if (gamepad2.dpad_down) {
-                    FLIP_POS = FLIPTEMP;
-                    FLIP_POS = (FLIPTEMP += Flip_DELTA);
-
-                    robot.flipper.setPosition(FLIP_POS);
 
 
-                } else if (gamepad2.dpad_up) {
-                    FLIP_POS = FLIPTEMP;
-                    FLIP_POS = FLIPTEMP -= Flip_DELTA;
-                    //FLIP_POS = Range.clip(FLIP_POS, 0.0,1.0);
-                    robot.flipper.setPosition(FLIP_POS);
-                }
+            // Move both servos to new position.
+            // robot.armPosition  = Range.clip(robot.armPosition, robot.ARM_MIN_RANGE, robot.ARM_MAX_RANGE);
+            //   robot.arm1.setPosition(robot.armPosition);
 
 
-                if (gamepad2.dpad_up) {
-                    flipPosition = +FLIP_DELTA;
-
-                } else if (gamepad2.dpad_down) {
-                    flipPosition = -FLIP_DELTA;
-                }
-
-
-                telemetry.addData("claw position is ", clawPosition);
-
-
-                // Move both servos to new position.
-                // robot.armPosition  = Range.clip(robot.armPosition, robot.ARM_MIN_RANGE, robot.ARM_MAX_RANGE);
-                //   robot.arm1.setPosition(robot.armPosition);
-
-
-                // clawPosition = Range.clip(clawPosition, robot.CLAW_MIN_RANGE, robot.CLAW_MAX_RANGE);
-                robot.clawR.setPosition(1.00 - clawPosition);
-                robot.clawL.setPosition(clawPosition);
-                robot.flipper.setPosition(flipPosition);
-                robot.grab.setPosition(hold);
-                // Send telemetry message to signify robot running;
-                telemetry.addData("arm", "%.2f", robot.armPosition);
+            // clawPosition = Range.clip(clawPosition, robot.CLAW_MIN_RANGE, robot.CLAW_MAX_RANGE);
+            robot.clawR.setPosition(1.00 - clawPosition);
+            robot.clawL.setPosition(clawPosition);
+            robot.grab.setPosition(hold);
+            // Send telemetry message to signify robot running;
+            telemetry.addData("arm", "%.2f", robot.armPosition);
 //            telemetry.addData("claw",  "%.2f", clawPosition);
 
-                telemetry.update();
+            telemetry.update();
 
-                // Pause for metronome tick.  40 mS each cycle = update 25 times a second.
-                robot.waitForTick(40);
-            }
+            // Pause for metronome tick.  40 mS each cycle = update 25 times a second.
+            robot.waitForTick(40);
         }
     }
-    }
+}
+
+
+
