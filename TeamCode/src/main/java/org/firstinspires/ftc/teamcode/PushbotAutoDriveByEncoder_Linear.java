@@ -18,7 +18,7 @@
  * LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
  * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE888 COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
@@ -73,7 +73,6 @@ public class PushbotAutoDriveByEncoder_Linear extends LinearOpMode {
     Team9997Hardware robot = new Team9997Hardware();   // Use a Pushbot's hardware
     private ElapsedTime runtime = new ElapsedTime();
 
-<<<<<<< HEAD
     static final double     COUNTS_PER_MOTOR_REV    = 280 ;    // eg: TETRIX Motor Encoder
     static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is < 1.0 if geared UP
     static final double     WHEEL_DIAMETER_INCHES   = 3.54 ;     // For figuring circumference
@@ -81,15 +80,9 @@ public class PushbotAutoDriveByEncoder_Linear extends LinearOpMode {
                                                       (WHEEL_DIAMETER_INCHES * 3.1415629);
     static final double     DRIVE_SPEED             = 0.9;
     static final double     TURN_SPEED              = 0.5;
-=======
-    static final double COUNTS_PER_MOTOR_REV = 1440;    // eg: TETRIX Motor Encoder
-    static final double DRIVE_GEAR_REDUCTION = 2.0;     // This is < 1.0 if geared UP
-    static final double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
-    static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
-            (WHEEL_DIAMETER_INCHES * 3.1415);
-    static final double DRIVE_SPEED = 0.6;
-    static final double TURN_SPEED = 0.5;
->>>>>>> 996e7826392eccdfa5eabdd9a04afe8051109878
+
+
+
 
     @Override
     public void runOpMode() {
@@ -145,13 +138,10 @@ public class PushbotAutoDriveByEncoder_Linear extends LinearOpMode {
         robot.clawR.setPosition(1.0);
         sleep(1000);
 
-<<<<<<< HEAD
         encoderDrive(DRIVE_SPEED,  -20,  20, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
        // encoderDrive(TURN_SPEED,   12, -12, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout    Left = 0 riht
-=======
-        encoderDrive(DRIVE_SPEED, -41, 41, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
-        // encoderDrive(TURN_SPEED,   12, -12, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
->>>>>>> 996e7826392eccdfa5eabdd9a04afe8051109878
+
+
 
 
         robot.clawL.setPosition(0.5);            // S4: Stop and close the claw.

@@ -139,10 +139,10 @@ public class TestCode9997tank extends LinearOpMode {
                 if (gamepad2.left_stick_y > 0) {
                     lift = 0;
                 } else {
-                    lift = -gamepad2.left_stick_y;
+                    lift = gamepad2.left_stick_y;
                 }
             } else {
-                lift = -gamepad2.left_stick_y;
+                lift = gamepad2.left_stick_y;
             }
 
 
