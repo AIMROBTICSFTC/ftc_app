@@ -72,12 +72,12 @@ public class PushbotAutoDriveByEncoder_Linear extends LinearOpMode {
     Team9997Hardware robot   = new Team9997Hardware();   // Use a Pushbot's hardware
     private ElapsedTime     runtime = new ElapsedTime();
 
-    static final double     COUNTS_PER_MOTOR_REV    = 1440 ;    // eg: TETRIX Motor Encoder
-    static final double     DRIVE_GEAR_REDUCTION    = 2.0 ;     // This is < 1.0 if geared UP
-    static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
+    static final double     COUNTS_PER_MOTOR_REV    = 280 ;    // eg: TETRIX Motor Encoder
+    static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is < 1.0 if geared UP
+    static final double     WHEEL_DIAMETER_INCHES   = 3.54 ;     // For figuring circumference
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
-                                                      (WHEEL_DIAMETER_INCHES * 3.1415);
-    static final double     DRIVE_SPEED             = 0.6;
+                                                      (WHEEL_DIAMETER_INCHES * 3.1415629);
+    static final double     DRIVE_SPEED             = 0.9;
     static final double     TURN_SPEED              = 0.5;
 
     @Override
@@ -110,19 +110,39 @@ public class PushbotAutoDriveByEncoder_Linear extends LinearOpMode {
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
+
+        robot.arm.setPosition(0.5);
+
+        telemetry.addData("RED", robot.color_sensor.red());
+        telemetry.addData("GREEN", robot.color_sensor.green());
+        telemetry.addData("BLUE", robot.color_sensor.blue());
+        telemetry.addData("ALPHA", robot.color_sensor.alpha());
+        telemetry.addData("ARGB", robot.color_sensor.argb());//
+        telemetry.update();
+        if (robot.color_sensor.alpha() > 400 ) {
+            encoderDrive(DRIVE_SPEED,  -1,  1, 1.0);
+            telemetry.addData("color", Integer.toString(robot.color_sensor.alpha()));
+            telemetry.update();
+        } else {
+            encoderDrive(DRIVE_SPEED,  1,  -1, 1.0);
+
+        }
+
+        robot.arm.setPosition(0);
+
         robot.clawL.setPosition(1.0);
         robot.clawR.setPosition(1.0);
         sleep(1000);
 
-        encoderDrive(DRIVE_SPEED,  -41,  41, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
-       // encoderDrive(TURN_SPEED,   12, -12, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
+        encoderDrive(DRIVE_SPEED,  -20,  20, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
+       // encoderDrive(TURN_SPEED,   12, -12, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout    Left = 0 riht
 
 
         robot.clawL.setPosition(0.5);            // S4: Stop and close the claw.
         robot.clawR.setPosition(0.5);
         sleep(1000);     // pause for servos to move
 
-        encoderDrive(DRIVE_SPEED, 41, -41, 5.0);//move back on to balencing platfrm
+        encoderDrive(DRIVE_SPEED, 20, -20, 5.0);//move back on to balencing platfrm
 
         telemetry.addData("Path", "Complete");
         telemetry.update();

@@ -98,6 +98,7 @@ public double reverse;
         clawL = hwMap.servo.get("clawL");
        flipper = hwMap.servo.get("flip");
         grab = hwMap.servo.get("grab");
+        arm = hwMap.servo.get("arm");
         // Set all motors to zero power
         leftMotor.setPower(0);
         rightMotor.setPower(0);
