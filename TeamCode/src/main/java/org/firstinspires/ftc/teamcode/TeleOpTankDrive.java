@@ -1,5 +1,15 @@
 package org.firstinspires.ftc.teamcode;
 
+/*
+    Offical Code of AIM Acedemy Robotics Team
+
+    Do not copy any of code unless allowed told to by Captain or Ben Ziegler
+
+    This code is for Tank Drive only
+    This code also include
+
+ */
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -121,22 +131,24 @@ public class TeleOpTankDrive extends LinearOpMode {
 
             robot.liftMotor.setPower(lift * Math.abs(lift));
 
+            //Flipper back or forward
             if (gamepad2.dpad_up) {
                 FLIP_POS = TOP;
                 robot.flipper.setPosition(FLIP_POS);
             } else if (gamepad2.dpad_down) {
-                FLIP_POS = BOT;
-                robot.flipper.setPosition(FLIP_POS);
+//                FLIP_POS = BOT;///
+//                robot.flipper.setPos/qition(FLIP_POS);
             }
-            if (FLIP_POS == 0.11 - 0.9) {
-                if (gamepad2.dpad_left) {
-                    FLIP_POS += Flip_DELTA;
-                    robot.flipper.setPosition(FLIP_POS);
-                } else if (gamepad2.dpad_right) {
-                    FLIP_POS -= Flip_DELTA;
-                    //FLIP_POS = Range.clip(FLIP_POS, 0.0,1.0);
-                    robot.flipper.setPosition(FLIP_POS);
-                }
+            //Adjust flipper positon
+
+            if (gamepad2.dpad_left) {
+                FLIP_POS += Flip_DELTA;
+                robot.flipper.setPosition(FLIP_POS);
+            } else if (gamepad2.dpad_right) {
+                FLIP_POS -= Flip_DELTA;
+                //FLIP_POS = Range.clip(FLIP_POS, 0.0,1.0);
+                robot.flipper.setPosition(FLIP_POS);
+
             }
         }
     }
