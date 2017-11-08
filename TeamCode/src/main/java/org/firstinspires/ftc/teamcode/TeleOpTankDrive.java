@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 @TeleOp(name = "TankDrive", group = "9997")
-public class TeleOpTankDrive extends LinearOpMode{
+public class TeleOpTankDrive extends LinearOpMode {
 
     //Implementing
     private double TOP = 0.9;
@@ -50,9 +50,7 @@ public class TeleOpTankDrive extends LinearOpMode{
             // If "B" is pressed robot returns to normal word
             if (gamepad1.a) {
                 reverse = 1;
-            }
-
-            else if (gamepad1.b){
+            } else if (gamepad1.b) {
                 reverse = 0;
             }
 
@@ -65,9 +63,7 @@ public class TeleOpTankDrive extends LinearOpMode{
                 //Apply to motor
                 robot.leftMotor.setPower(left * Math.abs(left));
                 robot.rightMotor.setPower(right * Math.abs(right));
-            }
-
-            else if (reverse == 0) {
+            } else if (reverse == 0) {
 
                 //Sets not as reverse
                 right = gamepad1.right_stick_y;
@@ -116,12 +112,10 @@ public class TeleOpTankDrive extends LinearOpMode{
                 // Lift Positioning
                 if (gamepad2.left_stick_y > 0) {
                     lift = 0;
-                }
-                else {
+                } else {
                     lift = -gamepad2.left_stick_y;
                 }
-            }
-            else {
+            } else {
                 lift = -gamepad2.left_stick_y;
             }
 
@@ -130,8 +124,7 @@ public class TeleOpTankDrive extends LinearOpMode{
             if (gamepad2.dpad_up) {
                 FLIP_POS = TOP;
                 robot.flipper.setPosition(FLIP_POS);
-            }
-            else if (gamepad2.dpad_down) {
+            } else if (gamepad2.dpad_down) {
                 FLIP_POS = BOT;
                 robot.flipper.setPosition(FLIP_POS);
             }
