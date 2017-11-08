@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;/*
+package org.firstinspires.ftc.robotcontroller.internal;/*
 Copyright (c) 2016 Robert Atkinson
 
 All rights reserved.
@@ -39,25 +39,25 @@ import com.qualcomm.robotcore.util.Range;
  * This OpMode uses the common HardwareK9bot class to define the devices on the robot.
  * All device access is managed through the HardwareK9bot class. (See this class for device names)
  * The code is structured as a LinearOpMode
- *
+ * <p>
  * This particular OpMode executes a basic Tank Drive Teleop for the K9 bot
  * It raises and lowers the arm using the Gampad Y and A buttons respectively.
  * It also opens and closes the claw slowly using the X and B buttons.
- *
+ * <p>
  * Note: the configuration of the servos is such that
  * as the arm servo approaches 0, the arm position moves up (away from the floor).
  * Also, as the claw servo approaches 0, the claw opens up (drops the game element).
- *
+ * <p>
  * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="9997Tank", group="9997")
+@TeleOp(name = "9997Tank", group = "9997")
 //@Disabled
 public class TestCode9997servo extends LinearOpMode {
 
 
-    Team9997Hardware   robot  = new Team9997Hardware();
+    Team9997Hardware robot = new Team9997Hardware();
 
     @Override
     public void runOpMode() {
@@ -68,14 +68,13 @@ public class TestCode9997servo extends LinearOpMode {
         robot.init(hardwareMap);
 
 
-
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
 
-              //  robot.claw.setPosition(gamepad1.right_trigger);
+            //  robot.claw.setPosition(gamepad1.right_trigger);
 
             // Pause for metronome tick.  40 mS each cycle = update 25 times a second.
             robot.waitForTick(40);
