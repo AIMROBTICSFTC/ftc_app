@@ -115,14 +115,20 @@ public class PushbotAutoDriveByEncoder_Linear extends LinearOpMode {
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
 
-        robot.arm.setPosition(0.5);
+        robot.clawL.setPosition(1.0);
+        robot.clawR.setPosition(1.0);
+        sleep(1000);
 
-        telemetry.addData("RED", robot.color_sensor.red());
+        robot.arm.setPosition(0.5);
+sleep(3000);
+
+telemetry.addData("RED", robot.color_sensor.red());
         telemetry.addData("GREEN", robot.color_sensor.green());
         telemetry.addData("BLUE", robot.color_sensor.blue());
         telemetry.addData("ALPHA", robot.color_sensor.alpha());
         telemetry.addData("ARGB", robot.color_sensor.argb());//
         telemetry.update();
+
         if (robot.color_sensor.alpha() > 400 ) {
             encoderDrive(DRIVE_SPEED,  -1,  1, 1.0);
             telemetry.addData("color", Integer.toString(robot.color_sensor.alpha()));
@@ -133,12 +139,10 @@ public class PushbotAutoDriveByEncoder_Linear extends LinearOpMode {
         }
 
         robot.arm.setPosition(0);
-
-        robot.clawL.setPosition(1.0);
-        robot.clawR.setPosition(1.0);
         sleep(1000);
 
-        encoderDrive(DRIVE_SPEED,  -20,  20, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
+
+        encoderDrive(DRIVE_SPEED,  -30,  30, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
        // encoderDrive(TURN_SPEED,   12, -12, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout    Left = 0 riht
 
 
@@ -148,7 +152,7 @@ public class PushbotAutoDriveByEncoder_Linear extends LinearOpMode {
         robot.clawR.setPosition(0.5);
         sleep(1000);     // pause for servos to move
 
-        encoderDrive(DRIVE_SPEED, 20, -20, 5.0);//move back on to balencing platfrm
+        encoderDrive(DRIVE_SPEED, 30, -30, 5.0);//move back on to balencing platfrm
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
@@ -189,7 +193,7 @@ public class PushbotAutoDriveByEncoder_Linear extends LinearOpMode {
             // keep looping while we are still active, and there is time left, and both motors are running.
             // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
             // its target position, the motion will stop.  This is "safer" in the event that the robot will
-            // always end the motion as soon as possible.
+            // always qend the motion as soon as possible.
             // However, if you require that BOTH motors have finished their moves before the robot continues
             // onto the next step, use (isBusy() || isBusy()) in the loop test.
             while (opModeIsActive() &&

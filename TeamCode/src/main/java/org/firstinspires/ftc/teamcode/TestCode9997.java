@@ -107,13 +107,20 @@ public class TestCode9997 extends LinearOpMode {
             } else if (reverse == 0) {
                 robot.arcadeDrive(-gamepad1.right_stick_y, -gamepad1.right_stick_x);
             }
-            robot.arcadeDrive(gamepad1.right_stick_y, gamepad1.right_stick_x);
+
 
             if (gamepad2.dpad_up) {
                 flipPosition += FLIP_DELTA;
             } else if (gamepad2.dpad_down) {
                 flipPosition -= FLIP_DELTA;
+            }
+                if(gamepad1.left_bumper){
 
+} else if (gamepad1.right_bumper){
+
+} else {
+
+}
 
             }
 
@@ -192,4 +199,4 @@ public class TestCode9997 extends LinearOpMode {
             robot.waitForTick(40);
         }
     }
-}
+
