@@ -115,12 +115,12 @@ public class PushbotAutoDriveByEncoder_Linear extends LinearOpMode {
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
 
-        robot.clawL.setPosition(1.0);
+        robot.clawL.setPosition(0.0);
         robot.clawR.setPosition(1.0);
         sleep(1000);
 
         robot.arm.setPosition(0.5);
-sleep(3000);
+sleep(2000);
 
 telemetry.addData("RED", robot.color_sensor.red());
         telemetry.addData("GREEN", robot.color_sensor.green());
@@ -129,17 +129,19 @@ telemetry.addData("RED", robot.color_sensor.red());
         telemetry.addData("ARGB", robot.color_sensor.argb());//
         telemetry.update();
 
-        if (robot.color_sensor.alpha() > 400 ) {
-            encoderDrive(DRIVE_SPEED,  -1,  1, 1.0);
+        if (robot.color_sensor.red() > robot.color_sensor.blue() ) {
+            encoderDrive(DRIVE_SPEED,  -3,  3, 2.0);
             telemetry.addData("color", Integer.toString(robot.color_sensor.alpha()));
             telemetry.update();
         } else {
-            encoderDrive(DRIVE_SPEED,  1,  -1, 1.0);
+            encoderDrive(DRIVE_SPEED,  3,  -3, 2.0);
 
         }
 
         robot.arm.setPosition(0);
         sleep(1000);
+
+        encoderDrive(DRIVE_SPEED,  3,  3, 2.0);
 
 
         encoderDrive(DRIVE_SPEED,  -30,  30, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
@@ -152,7 +154,7 @@ telemetry.addData("RED", robot.color_sensor.red());
         robot.clawR.setPosition(0.5);
         sleep(1000);     // pause for servos to move
 
-        encoderDrive(DRIVE_SPEED, 30, -30, 5.0);//move back on to balencing platfrm
+       // encoderDrive(DRIVE_SPEED, 37, -37, 5.0);//move back on to balencing platfrm
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
