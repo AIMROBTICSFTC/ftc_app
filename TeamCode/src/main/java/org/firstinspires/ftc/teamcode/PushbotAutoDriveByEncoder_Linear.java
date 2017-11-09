@@ -141,10 +141,10 @@ telemetry.addData("RED", robot.color_sensor.red());
         robot.arm.setPosition(0);
         sleep(1000);
 
-        encoderDrive(DRIVE_SPEED,  3,  3, 2.0);
+        encoderDrive(DRIVE_SPEED,  1,  1, 2.0);
 
 
-        encoderDrive(DRIVE_SPEED,  -30,  30, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
+        encoderDrive(DRIVE_SPEED,  -33,  33, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
        // encoderDrive(TURN_SPEED,   12, -12, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout    Left = 0 riht
 
 
