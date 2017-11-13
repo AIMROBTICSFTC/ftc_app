@@ -73,7 +73,7 @@ public class PushbotAutoDriveByEncoder_Linear extends LinearOpMode {
     Team9997Hardware robot = new Team9997Hardware();   // Use a Pushbot's hardware
     private ElapsedTime runtime = new ElapsedTime();
 
-    static final double     COUNTS_PER_MOTOR_REV    = 280 ;    // eg: TETRIX Motor Encoder
+    static final double     COUNTS_PER_MOTOR_REV    = 288 ;    // eg: TETRIX Motor Encoder
     static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is < 1.0 if geared UP
     static final double     WHEEL_DIAMETER_INCHES   = 3.54 ;     // For figuring circumference
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
@@ -121,7 +121,11 @@ public class PushbotAutoDriveByEncoder_Linear extends LinearOpMode {
 
         robot.arm.setPosition(0.45);
 sleep(1500);
-
+        robot.liftMotor.setPower(1.0);
+        while (opModeIsActive() && (runtime.seconds() < 0.4)) {
+            telemetry.addData("Path", "Leg 2: %2.5f S Elapsed", runtime.seconds());
+            telemetry.update();
+        }
 
 
 
@@ -161,7 +165,9 @@ telemetry.addData("RED", robot.color_sensor.red());
             robot.arm.setPosition(0);
             sleep(1000);
 
-            encoderDrive(DRIVE_SPEED,  3,  3, 2.0);
+
+
+            encoderDrive(DRIVE_SPEED,  2,  2, 2.0);
 
 
             encoderDrive(DRIVE_SPEED,  -32,  32, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout

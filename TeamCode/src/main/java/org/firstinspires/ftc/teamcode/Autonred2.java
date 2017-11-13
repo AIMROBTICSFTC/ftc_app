@@ -123,7 +123,11 @@ public class Autonred2 extends LinearOpMode {
         sleep(1500);
 
 
-
+        robot.liftMotor.setPower(1);
+        while (opModeIsActive() && (runtime.seconds() < 0.4)) {
+            telemetry.addData("Path", "Leg 2: %2.5f S Elapsed", runtime.seconds());
+            telemetry.update();
+        }
 
         telemetry.addData("RED", robot.color_sensor.red());
         telemetry.addData("GREEN", robot.color_sensor.green());
@@ -139,7 +143,7 @@ public class Autonred2 extends LinearOpMode {
 
             encoderDrive(DRIVE_SPEED,  -10,  10, 3.0);
 
-            encoderDrive(DRIVE_SPEED,  -7,  -7, 3.0);
+            encoderDrive(DRIVE_SPEED,  -9,  -9, 3.0);
 
             encoderDrive(DRIVE_SPEED,  -15,  15, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
             // encoderDrive(TURN_SPEED,   12, -12, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout    Left = 0 riht
@@ -162,9 +166,9 @@ public class Autonred2 extends LinearOpMode {
             robot.arm.setPosition(0);
             sleep(1000);
 
-            encoderDrive(DRIVE_SPEED,  -15,  15, 3.0);
+            encoderDrive(DRIVE_SPEED,  -10,  10, 3.0);
 
-            encoderDrive(DRIVE_SPEED,  -7,  -7, 3.0);
+            encoderDrive(DRIVE_SPEED,  -9,  -9, 3.0);
 
             encoderDrive(DRIVE_SPEED,  -15,  15, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
             // encoderDrive(TURN_SPEED,   12, -12, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout    Left = 0 riht
