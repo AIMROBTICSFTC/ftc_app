@@ -3,10 +3,10 @@ package org.firstinspires.ftc.teamcode;
 /*
     Offical Code of AIM Acedemy Robotics Team
 
-    Do not copy any of code unless allowed told to by Captain or Ben Ziegler
+    Do not copy any of code unless allowed told to by Captain of Programming
 
     This code is for Tank Drive only
-    This code also include
+    This code also include lift, claw, and flipper
 
  */
 
@@ -142,10 +142,10 @@ public class TeleOpTankDrive extends LinearOpMode {
             //Adjust flipper positon
 
             if (gamepad2.dpad_left) {
-                FLIP_POS += Flip_DELTA;
+                FLIP_POS =+ Flip_DELTA;
                 robot.flipper.setPosition(FLIP_POS);
             } else if (gamepad2.dpad_right) {
-                FLIP_POS -= Flip_DELTA;
+                FLIP_POS =- Flip_DELTA;
                 //FLIP_POS = Range.clip(FLIP_POS, 0.0,1.0);
                 robot.flipper.setPosition(FLIP_POS);
 

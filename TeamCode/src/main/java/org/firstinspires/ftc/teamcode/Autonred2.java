@@ -79,6 +79,7 @@ public class Autonred2 extends LinearOpMode {
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_INCHES * 3.1415926535897);
     static final double     DRIVE_SPEED             = 0.9;
+    static final double     SLOW_SPEED              = 0.4;
     static final double     TURN_SPEED              = 0.5;
 
 
@@ -123,10 +124,12 @@ public class Autonred2 extends LinearOpMode {
         sleep(1500);
 
 
-        robot.liftMotor.setPower(1);
-        while (opModeIsActive() && (runtime.seconds() < 0.4)) {
+        robot.liftMotor.setPower(0.5);
+        sleep(500);
+        while (opModeIsActive() && (runtime.seconds() < 0.2)) {
             telemetry.addData("Path", "Leg 2: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
+
         }
 
         telemetry.addData("RED", robot.color_sensor.red());
@@ -163,10 +166,12 @@ public class Autonred2 extends LinearOpMode {
             telemetry.update();
         } else {
             encoderDrive(DRIVE_SPEED,  2,  -2, 2.0);
+            encoderDrive(DRIVE_SPEED,  -2,  -2, 2.0);
+            encoderDrive(DRIVE_SPEED,  2,  2, 2.0);
             robot.arm.setPosition(0);
             sleep(1000);
 
-            encoderDrive(DRIVE_SPEED,  -10,  10, 3.0);
+            encoderDrive(DRIVE_SPEED,  -13,  13, 3.0);
 
             encoderDrive(DRIVE_SPEED,  -9,  -9, 3.0);
 
@@ -180,6 +185,7 @@ public class Autonred2 extends LinearOpMode {
             robot.clawR.setPosition(0.5);
             sleep(1000);     // pause for servos to move
 
+            encoderDrive(DRIVE_SPEED, 1, -1, 1.0);
             // encoderDrive(DRIVE_SPEED, 37, -37, 5.0);//move back on to balencing platfrm
 
             telemetry.addData("Path", "Complete");
