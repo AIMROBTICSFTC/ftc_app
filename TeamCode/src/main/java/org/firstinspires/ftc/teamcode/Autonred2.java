@@ -65,9 +65,9 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name = "Autonred1", group = "9997")
+@Autonomous(name = "Autonred2", group = "9997")
 //@Disabled
-public class PushbotAutoDriveByEncoder_Linear extends LinearOpMode {
+public class Autonred2 extends LinearOpMode {
 
     /* Declare OpMode members. */
     Team9997Hardware robot = new Team9997Hardware();   // Use a Pushbot's hardware
@@ -77,7 +77,7 @@ public class PushbotAutoDriveByEncoder_Linear extends LinearOpMode {
     static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is < 1.0 if geared UP
     static final double     WHEEL_DIAMETER_INCHES   = 3.54 ;     // For figuring circumference
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
-                                                      (WHEEL_DIAMETER_INCHES * 3.1415629);
+            (WHEEL_DIAMETER_INCHES * 3.1415926535897);
     static final double     DRIVE_SPEED             = 0.9;
     static final double     TURN_SPEED              = 0.5;
 
@@ -120,12 +120,12 @@ public class PushbotAutoDriveByEncoder_Linear extends LinearOpMode {
         sleep(1000);
 
         robot.arm.setPosition(0.45);
-sleep(1500);
+        sleep(1500);
 
 
 
 
-telemetry.addData("RED", robot.color_sensor.red());
+        telemetry.addData("RED", robot.color_sensor.red());
         telemetry.addData("GREEN", robot.color_sensor.green());
         telemetry.addData("BLUE", robot.color_sensor.blue());
         telemetry.addData("ALPHA", robot.color_sensor.alpha());
@@ -137,10 +137,11 @@ telemetry.addData("RED", robot.color_sensor.red());
             robot.arm.setPosition(0);
             sleep(1000);
 
-            encoderDrive(DRIVE_SPEED,  3,  3, 2.0);
+            encoderDrive(DRIVE_SPEED,  -10,  10, 3.0);
 
+            encoderDrive(DRIVE_SPEED,  -7,  -7, 3.0);
 
-            encoderDrive(DRIVE_SPEED,  -30,  30, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
+            encoderDrive(DRIVE_SPEED,  -15,  15, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
             // encoderDrive(TURN_SPEED,   12, -12, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout    Left = 0 riht
 
 
@@ -161,10 +162,11 @@ telemetry.addData("RED", robot.color_sensor.red());
             robot.arm.setPosition(0);
             sleep(1000);
 
-            encoderDrive(DRIVE_SPEED,  3,  3, 2.0);
+            encoderDrive(DRIVE_SPEED,  -15,  15, 3.0);
 
+            encoderDrive(DRIVE_SPEED,  -7,  -7, 3.0);
 
-            encoderDrive(DRIVE_SPEED,  -32,  32, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
+            encoderDrive(DRIVE_SPEED,  -15,  15, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
             // encoderDrive(TURN_SPEED,   12, -12, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout    Left = 0 riht
 
 
@@ -177,6 +179,8 @@ telemetry.addData("RED", robot.color_sensor.red());
             // encoderDrive(DRIVE_SPEED, 37, -37, 5.0);//move back on to balencing platfrm
 
             telemetry.addData("Path", "Complete");
+            telemetry.update();
+            telemetry.addData("color", Integer.toString(robot.color_sensor.alpha()));
             telemetry.update();
         }
 
