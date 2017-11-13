@@ -121,8 +121,9 @@ public class PushbotAutoDriveByEncoder_Linear extends LinearOpMode {
 
         robot.arm.setPosition(0.45);
 sleep(1500);
-        robot.liftMotor.setPower(1.0);
-        while (opModeIsActive() && (runtime.seconds() < 0.4)) {
+        robot.liftMotor.setPower(0.5);
+        sleep(500);
+        while (opModeIsActive() && (runtime.seconds() < 0.2)) {
             telemetry.addData("Path", "Leg 2: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
@@ -141,10 +142,10 @@ telemetry.addData("RED", robot.color_sensor.red());
             robot.arm.setPosition(0);
             sleep(1000);
 
-            encoderDrive(DRIVE_SPEED,  3,  3, 2.0);
+            encoderDrive(DRIVE_SPEED,  1.9,  1.9, 2.0);
 
 
-            encoderDrive(DRIVE_SPEED,  -30,  30, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
+            encoderDrive(DRIVE_SPEED,  -28,  28, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
             // encoderDrive(TURN_SPEED,   12, -12, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout    Left = 0 riht
 
 
@@ -162,15 +163,17 @@ telemetry.addData("RED", robot.color_sensor.red());
             telemetry.update();
         } else {
             encoderDrive(DRIVE_SPEED,  2,  -2, 2.0);
+            encoderDrive(DRIVE_SPEED,  -2,  -2, 2.0);
+            encoderDrive(DRIVE_SPEED,  2,  2, 2.0);
             robot.arm.setPosition(0);
             sleep(1000);
 
 
 
-            encoderDrive(DRIVE_SPEED,  2,  2, 2.0);
+            encoderDrive(DRIVE_SPEED,  1.9,  1.9, 2.0);
 
 
-            encoderDrive(DRIVE_SPEED,  -32,  32, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
+            encoderDrive(DRIVE_SPEED,  -33,  33, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
             // encoderDrive(TURN_SPEED,   12, -12, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout    Left = 0 riht
 
 
