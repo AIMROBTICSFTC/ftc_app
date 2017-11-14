@@ -39,7 +39,7 @@ import org.firstinspires.ftc.teamcode.Team9997Hardware;
 import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 
 
-// test 1
+// test 2
 /**
  * This file illustrates the concept of driving a path based on encoder counts.
  * It uses the common Pushbot hardware class to define the drive on the robot.
@@ -144,7 +144,7 @@ telemetry.addData("RED", robot.color_sensor.red());
             robot.arm.setPosition(0);
             sleep(1000);
 
-          //  encoderDrive(DRIVE_SPEED,  1.7,  1.7, 2.0);
+            encoderDrive(DRIVE_SPEED,  1.7,  1.7, 2.0);
 
 
             encoderDrive(DRIVE_SPEED,  -28,  28, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
@@ -172,7 +172,7 @@ telemetry.addData("RED", robot.color_sensor.red());
 
 
 
-            encoderDrive(DRIVE_SPEED,  1.7,  1.7, 2.0);
+            //encoderDrive(DRIVE_SPEED,  1.7,  1.7, 2.0);
 
 
             encoderDrive(DRIVE_SPEED,  -33,  33, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
