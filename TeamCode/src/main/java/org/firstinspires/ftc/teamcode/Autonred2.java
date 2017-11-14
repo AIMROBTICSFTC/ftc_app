@@ -81,6 +81,7 @@ public class Autonred2 extends LinearOpMode {
     static final double     DRIVE_SPEED             = 0.9;
     static final double     SLOW_SPEED              = 0.4;
     static final double     TURN_SPEED              = 0.5;
+    static final double     LIFT_SPEED              = 0.9;
 
 
 
@@ -100,9 +101,11 @@ public class Autonred2 extends LinearOpMode {
 
         robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         robot.leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // Send telemetry message to indicate successful Encoder reset
         telemetry.addData("Path0", "Starting at %7d :%7d",
@@ -124,11 +127,13 @@ public class Autonred2 extends LinearOpMode {
         sleep(1500);
 
 
-        robot.liftMotor.setPower(0.5);
+        runtime.reset();
         sleep(500);
-        while (opModeIsActive() && (runtime.seconds() < 0.2)) {
+        while (opModeIsActive() && (runtime.seconds() < 0.4)) {
             telemetry.addData("Path", "Leg 2: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
+            encoderLift(LIFT_SPEED, 2, 1);
+
 
         }
 
@@ -205,6 +210,42 @@ public class Autonred2 extends LinearOpMode {
      *  2) Move runs out of time
      *  3) Driver stops the opmode running.
      */
+    public void encoderLift(double speed,
+                            double LiftInches,
+                            double timeoutS) {
+
+        int newLiftTarget;
+
+        if (opModeIsActive()) {
+            // Determine new target position, and pass to motor controller
+            newLiftTarget = robot.liftMotor.getCurrentPosition() + (int) (LiftInches * COUNTS_PER_INCH);
+            robot.liftMotor.setTargetPosition(newLiftTarget);
+
+            // Turn on RUN_TO_POSITION
+            robot.liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            runtime.reset();
+            robot.leftMotor.setPower(Math.abs(speed));
+            robot.rightMotor.setPower(Math.abs(speed));
+
+            while (opModeIsActive() &&
+                    (runtime.seconds() < timeoutS) &&
+                    (robot.leftMotor.isBusy() && robot.rightMotor.isBusy())) {
+
+                telemetry.addData("Path1", "Running to %7d :%7d", newLiftTarget);
+                telemetry.addData("Path2", "Running at %7d :%7d", robot.liftMotor.getCurrentPosition());
+                telemetry.update();
+            }
+
+            robot.liftMotor.setPower(0);
+            robot.liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+
+
+
+
+        }
+    }
     public void encoderDrive(double speed,
                              double leftInches, double rightInches,
                              double timeoutS) {
