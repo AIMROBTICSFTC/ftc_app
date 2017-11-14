@@ -101,11 +101,9 @@ public class Autonred2 extends LinearOpMode {
 
         robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         robot.leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // Send telemetry message to indicate successful Encoder reset
         telemetry.addData("Path0", "Starting at %7d :%7d",
@@ -126,16 +124,12 @@ public class Autonred2 extends LinearOpMode {
         robot.arm.setPosition(0.45);
         sleep(1500);
 
+        telemetry.addData("Path", "Leg 2: %2.5f S Elapsed", runtime.seconds());
+        telemetry.update();
+        robot.liftMotor.setPower(0.5);
+        sleep(3000);
+        robot.liftMotor.setPower(0);
 
-        runtime.reset();
-        sleep(500);
-        while (opModeIsActive() && (runtime.seconds() < 0.4)) {
-            telemetry.addData("Path", "Leg 2: %2.5f S Elapsed", runtime.seconds());
-            telemetry.update();
-            encoderLift(LIFT_SPEED, 2, 1);
-
-
-        }
 
         telemetry.addData("RED", robot.color_sensor.red());
         telemetry.addData("GREEN", robot.color_sensor.green());
