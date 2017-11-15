@@ -68,8 +68,8 @@ public class AutonRed2 extends LinearOpMode {
 
         telemetry.addData("Path", "Leg 2: %2.5f S Elapsed", runtime.seconds());
         telemetry.update();
-        robot.liftMotor.setPower(0.5);
-        sleep(3000);
+        robot.liftMotor.setPower(0.9);
+        sleep(1500);
         robot.liftMotor.setPower(0);
 
 
@@ -81,9 +81,11 @@ public class AutonRed2 extends LinearOpMode {
         telemetry.update();
 
         if (robot.color_sensor.red() > robot.color_sensor.blue()) {   // if robot sees red do this code:
-            encoderDrive(DRIVE_SPEED, -3, 3, 2.0);
+            encoderDrive(SLOW_SPEED, -3, 3, 3.0);
             robot.arm.setPosition(0);
             sleep(1000);
+
+
 
             encoderDrive(DRIVE_SPEED, -10, 10, 3.0);
 
@@ -91,7 +93,6 @@ public class AutonRed2 extends LinearOpMode {
 
             encoderDrive(DRIVE_SPEED, -15, 15, 5.0);
 
-            encoderDrive(DRIVE_SPEED, 3, -3, 1);
             // S1: Forward 47 Inches with 5 Sec timeout
             // encoderDrive(TURN_SPEED,   12, -12, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout    Left = 0 riht
 
@@ -99,6 +100,8 @@ public class AutonRed2 extends LinearOpMode {
             robot.clawL.setPosition(0.5);            // S4: Stop and close the claw.
             robot.clawR.setPosition(0.5);
             sleep(1000);     // pause for servos to move
+
+            encoderDrive(DRIVE_SPEED, 3, -3, 1);
 
             // encoderDrive(DRIVE_SPEED, 37, -37, 5.0);//move back on to balencing platfrm
 
@@ -115,7 +118,7 @@ public class AutonRed2 extends LinearOpMode {
 
             encoderDrive(DRIVE_SPEED, -26, 26, 6.0);
 
-            encoderDrive(DRIVE_SPEED, -11, -11
+            encoderDrive(DRIVE_SPEED, -10, -10
                     , 4);
 
             encoderDrive(DRIVE_SPEED, -10, 10, 3.0);  // S1: Forward 47 Inches with 5 Sec timeout
@@ -146,7 +149,11 @@ public class AutonRed2 extends LinearOpMode {
      *  2) Move runs out of time
      *  3) Driver stops the opmode running.
      */
-    public void encoderLift(double speed,
+
+    //Experimenting with encoders for lift
+
+
+    /*public void encoderLift(double speed,
                             double LiftInches,
                             double timeoutS) {
 
@@ -178,7 +185,7 @@ public class AutonRed2 extends LinearOpMode {
 
 
         }
-    }
+    }*/
 
     public void encoderDrive(double speed,
                              double leftInches, double rightInches,
