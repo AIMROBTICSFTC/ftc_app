@@ -121,7 +121,7 @@ public class Autonred1 extends LinearOpMode {
         robot.clawR.setPosition(0.0);
         sleep(1000);
 
-        robot.arm.setPosition(0.45);
+        robot.arm.setPosition(0.55);
         sleep(1500);
         robot.liftMotor.setPower(0.5);
         sleep(500);
