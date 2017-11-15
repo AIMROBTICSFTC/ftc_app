@@ -67,9 +67,9 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name = "IgnoreThis", group = "9997")
+@Autonomous(name = "Autonred1", group = "9997")
 //@Disabled
-public class AutonRed1 extends LinearOpMode {
+public class Autonred1 extends LinearOpMode {
 
     /* Declare OpMode members. */
     Team9997Hardware robot = new Team9997Hardware();   // Use a Pushbot's hardware
@@ -79,7 +79,7 @@ public class AutonRed1 extends LinearOpMode {
     static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is < 1.0 if geared UP
     static final double     WHEEL_DIAMETER_INCHES   = 3.54 ;     // For figuring circumference
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
-                                                      (WHEEL_DIAMETER_INCHES * 3.1415629);
+            (WHEEL_DIAMETER_INCHES * 3.1415629);
     static final double     DRIVE_SPEED             = 0.9;
     static final double     TURN_SPEED              = 0.5;
 
@@ -122,7 +122,7 @@ public class AutonRed1 extends LinearOpMode {
         sleep(1000);
 
         robot.arm.setPosition(0.45);
-sleep(1500);
+        sleep(1500);
         robot.liftMotor.setPower(0.5);
         sleep(500);
         while (opModeIsActive() && (runtime.seconds() < 0.2)) {
@@ -132,14 +132,14 @@ sleep(1500);
 
 
 
-telemetry.addData("RED", robot.color_sensor.red());
+        telemetry.addData("RED", robot.color_sensor.red());
         telemetry.addData("GREEN", robot.color_sensor.green());
         telemetry.addData("BLUE", robot.color_sensor.blue());
         telemetry.addData("ALPHA", robot.color_sensor.alpha());
         telemetry.addData("ARGB", robot.color_sensor.argb());//
         telemetry.update();
 
-        if (robot.color_sensor.red() > robot.color_sensor.blue() ) {    // if robot sees RED run this code:
+        if (robot.color_sensor.red() > robot.color_sensor.blue() ) {
             encoderDrive(DRIVE_SPEED,  -3,  3, 2.0);
             robot.arm.setPosition(0);
             sleep(1000);
@@ -164,7 +164,7 @@ telemetry.addData("RED", robot.color_sensor.red());
             telemetry.update();
             telemetry.addData("color", Integer.toString(robot.color_sensor.alpha()));
             telemetry.update();
-        } else {    // if the robot sees BLUE run this code:
+        } else {
             encoderDrive(DRIVE_SPEED,  2,  -2, 2.0);
             encoderDrive(DRIVE_SPEED,  -2,  -2, 2.0);
             encoderDrive(DRIVE_SPEED,  2,  2, 2.0);
