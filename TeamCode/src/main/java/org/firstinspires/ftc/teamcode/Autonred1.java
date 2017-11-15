@@ -39,7 +39,7 @@ import org.firstinspires.ftc.teamcode.Team9997Hardware;
 import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 
 
-// test 2
+// this is latest
 /**
  * This file illustrates the concept of driving a path based on encoder counts.
  * It uses the common Pushbot hardware class to define the drive on the robot.
@@ -121,7 +121,7 @@ public class AutonRed1 extends LinearOpMode {
         robot.clawR.setPosition(0.0);
         sleep(1000);
 
-        robot.arm.setPosition(0.45);
+        robot.arm.setPosition(0.55);
 sleep(1500);
         robot.liftMotor.setPower(0.5);
         sleep(500);
