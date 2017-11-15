@@ -38,6 +38,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.Team9997Hardware;
 import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 
+
+// test 2
 /**
  * This file illustrates the concept of driving a path based on encoder counts.
  * It uses the common Pushbot hardware class to define the drive on the robot.
@@ -65,23 +67,21 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name = "Autonred2", group = "9997")
+@Autonomous(name = "Autonred1", group = "9997")
 //@Disabled
-public class Autonred2 extends LinearOpMode {
+public class AutonRed1 extends LinearOpMode {
 
     /* Declare OpMode members. */
     Team9997Hardware robot = new Team9997Hardware();   // Use a Pushbot's hardware
     private ElapsedTime runtime = new ElapsedTime();
 
-    static final double     COUNTS_PER_MOTOR_REV    = 280 ;    // eg: TETRIX Motor Encoder
+    static final double     COUNTS_PER_MOTOR_REV    = 288 ;    // eg: TETRIX Motor Encoder
     static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is < 1.0 if geared UP
     static final double     WHEEL_DIAMETER_INCHES   = 3.54 ;     // For figuring circumference
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
-            (WHEEL_DIAMETER_INCHES * 3.1415926535897);
+                                                      (WHEEL_DIAMETER_INCHES * 3.1415629);
     static final double     DRIVE_SPEED             = 0.9;
-    static final double     SLOW_SPEED              = 0.4;
     static final double     TURN_SPEED              = 0.5;
-    static final double     LIFT_SPEED              = 0.9;
 
 
 
@@ -122,32 +122,33 @@ public class Autonred2 extends LinearOpMode {
         sleep(1000);
 
         robot.arm.setPosition(0.45);
-        sleep(1500);
-
-        telemetry.addData("Path", "Leg 2: %2.5f S Elapsed", runtime.seconds());
-        telemetry.update();
+sleep(1500);
         robot.liftMotor.setPower(0.5);
-        sleep(3000);
-        robot.liftMotor.setPower(0);
+        sleep(500);
+        while (opModeIsActive() && (runtime.seconds() < 0.2)) {
+            telemetry.addData("Path", "Leg 2: %2.5f S Elapsed", runtime.seconds());
+            telemetry.update();
+        }
 
 
-        telemetry.addData("RED", robot.color_sensor.red());
+
+telemetry.addData("RED", robot.color_sensor.red());
         telemetry.addData("GREEN", robot.color_sensor.green());
         telemetry.addData("BLUE", robot.color_sensor.blue());
         telemetry.addData("ALPHA", robot.color_sensor.alpha());
         telemetry.addData("ARGB", robot.color_sensor.argb());//
         telemetry.update();
 
-        if (robot.color_sensor.red() > robot.color_sensor.blue() ) {
+        if (robot.color_sensor.red() > robot.color_sensor.blue() ) {    // if robot sees RED run this code:
             encoderDrive(DRIVE_SPEED,  -3,  3, 2.0);
             robot.arm.setPosition(0);
             sleep(1000);
+            encoderDrive(DRIVE_SPEED,  -16,  16, 3.0);
 
-            encoderDrive(DRIVE_SPEED,  -10,  10, 3.0);
+            encoderDrive(DRIVE_SPEED,  5.7,  5.7, 2.0);
+            robot.liftMotor.setPower(0.0);
 
-            encoderDrive(DRIVE_SPEED,  -9,  -9, 3.0);
-
-            encoderDrive(DRIVE_SPEED,  -15,  15, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
+            encoderDrive(DRIVE_SPEED,  -12,  12, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
             // encoderDrive(TURN_SPEED,   12, -12, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout    Left = 0 riht
 
 
@@ -156,23 +157,24 @@ public class Autonred2 extends LinearOpMode {
             robot.clawL.setPosition(0.5);            // S4: Stop and close the claw.
             robot.clawR.setPosition(0.5);
             sleep(1000);     // pause for servos to move
-
+            encoderDrive(DRIVE_SPEED,  2,  -2, 2.0);
             // encoderDrive(DRIVE_SPEED, 37, -37, 5.0);//move back on to balencing platfrm
 
             telemetry.addData("Path", "Complete");
             telemetry.update();
             telemetry.addData("color", Integer.toString(robot.color_sensor.alpha()));
             telemetry.update();
-        } else {
+        } else {    // if the robot sees BLUE run this code:
             encoderDrive(DRIVE_SPEED,  2,  -2, 2.0);
             encoderDrive(DRIVE_SPEED,  -2,  -2, 2.0);
             encoderDrive(DRIVE_SPEED,  2,  2, 2.0);
             robot.arm.setPosition(0);
             sleep(1000);
 
-            encoderDrive(DRIVE_SPEED,  -13,  13, 3.0);
+            encoderDrive(DRIVE_SPEED,  -21,  21, 3.0);
 
-            encoderDrive(DRIVE_SPEED,  -9,  -9, 3.0);
+            encoderDrive(DRIVE_SPEED,  5.7,  5.7, 2.0);
+            robot.liftMotor.setPower(0.0);
 
             encoderDrive(DRIVE_SPEED,  -15,  15, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
             // encoderDrive(TURN_SPEED,   12, -12, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout    Left = 0 riht
@@ -184,12 +186,9 @@ public class Autonred2 extends LinearOpMode {
             robot.clawR.setPosition(0.5);
             sleep(1000);     // pause for servos to move
 
-            encoderDrive(DRIVE_SPEED, 1, -1, 1.0);
             // encoderDrive(DRIVE_SPEED, 37, -37, 5.0);//move back on to balencing platfrm
-
+            encoderDrive(DRIVE_SPEED,  2,  -2, 2.0);
             telemetry.addData("Path", "Complete");
-            telemetry.update();
-            telemetry.addData("color", Integer.toString(robot.color_sensor.alpha()));
             telemetry.update();
         }
 
@@ -204,42 +203,6 @@ public class Autonred2 extends LinearOpMode {
      *  2) Move runs out of time
      *  3) Driver stops the opmode running.
      */
-    public void encoderLift(double speed,
-                            double LiftInches,
-                            double timeoutS) {
-
-        int newLiftTarget;
-
-        if (opModeIsActive()) {
-            // Determine new target position, and pass to motor controller
-            newLiftTarget = robot.liftMotor.getCurrentPosition() + (int) (LiftInches * COUNTS_PER_INCH);
-            robot.liftMotor.setTargetPosition(newLiftTarget);
-
-            // Turn on RUN_TO_POSITION
-            robot.liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-            runtime.reset();
-            robot.leftMotor.setPower(Math.abs(speed));
-            robot.rightMotor.setPower(Math.abs(speed));
-
-            while (opModeIsActive() &&
-                    (runtime.seconds() < timeoutS) &&
-                    (robot.leftMotor.isBusy() && robot.rightMotor.isBusy())) {
-
-                telemetry.addData("Path1", "Running to %7d :%7d", newLiftTarget);
-                telemetry.addData("Path2", "Running at %7d :%7d", robot.liftMotor.getCurrentPosition());
-                telemetry.update();
-            }
-
-            robot.liftMotor.setPower(0);
-            robot.liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-
-
-
-
-        }
-    }
     public void encoderDrive(double speed,
                              double leftInches, double rightInches,
                              double timeoutS) {
