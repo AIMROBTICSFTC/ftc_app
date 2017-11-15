@@ -123,10 +123,10 @@ public class TeleOpTankDrive extends LinearOpMode {
                 if (gamepad2.left_stick_y > 0) {
                     lift = 0;
                 } else {
-                    lift = -gamepad2.left_stick_y;
+                    lift = gamepad2.left_stick_y;
                 }
             } else {
-                lift = -gamepad2.left_stick_y;
+                lift = gamepad2.left_stick_y;
             }
 
             robot.liftMotor.setPower(lift * Math.abs(lift));

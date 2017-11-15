@@ -67,9 +67,9 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name = "IgnoreThis", group = "9997")
+@Autonomous(name = "Autonred1", group = "9997")
 //@Disabled
-public class AutonRed1 extends LinearOpMode {
+public class Autonred1 extends LinearOpMode {
 
     /* Declare OpMode members. */
     Team9997Hardware robot = new Team9997Hardware();   // Use a Pushbot's hardware
@@ -121,7 +121,7 @@ public class AutonRed1 extends LinearOpMode {
         robot.clawR.setPosition(0.0);
         sleep(1000);
 
-        robot.arm.setPosition(0.55);
+        robot.arm.setPosition(0.5);
 sleep(1500);
         robot.liftMotor.setPower(0.5);
         sleep(500);
@@ -140,12 +140,13 @@ telemetry.addData("RED", robot.color_sensor.red());
         telemetry.update();
 
         if (robot.color_sensor.red() > robot.color_sensor.blue() ) {    // if robot sees RED run this code:
-            encoderDrive(DRIVE_SPEED,  -3,  3, 2.0);
+            encoderDrive(DRIVE_SPEED,  -3,  3, 9.0);
             robot.arm.setPosition(0);
             sleep(1000);
-            encoderDrive(DRIVE_SPEED,  -16,  16, 3.0);
+            encoderDrive(DRIVE_SPEED,  -16,  16, 9.0);
 
-            encoderDrive(DRIVE_SPEED,  5.7,  5.7, 2.0);
+
+            encoderDrive(DRIVE_SPEED,  5.7,  5.7, 9.0);
             robot.liftMotor.setPower(0.0);
 
             encoderDrive(DRIVE_SPEED,  -12,  12, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
@@ -167,8 +168,9 @@ telemetry.addData("RED", robot.color_sensor.red());
         } else {    // if the robot sees BLUE run this code:
             encoderDrive(DRIVE_SPEED,  2,  -2, 2.0);
             encoderDrive(DRIVE_SPEED,  -2,  -2, 2.0);
-            encoderDrive(DRIVE_SPEED,  2,  2, 2.0);
             robot.arm.setPosition(0);
+            encoderDrive(DRIVE_SPEED,  2,  2, 2.0);
+
             sleep(1000);
 
             encoderDrive(DRIVE_SPEED,  -21,  21, 3.0);
