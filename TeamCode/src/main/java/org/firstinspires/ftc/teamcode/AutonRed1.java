@@ -69,7 +69,7 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 
 @Autonomous(name = "IgnoreThis", group = "9997")
 //@Disabled
-public class PushbotAutoDriveByEncoder_Linear extends LinearOpMode {
+public class AutonRed1 extends LinearOpMode {
 
     /* Declare OpMode members. */
     Team9997Hardware robot = new Team9997Hardware();   // Use a Pushbot's hardware
@@ -139,7 +139,7 @@ telemetry.addData("RED", robot.color_sensor.red());
         telemetry.addData("ARGB", robot.color_sensor.argb());//
         telemetry.update();
 
-        if (robot.color_sensor.red() > robot.color_sensor.blue() ) {
+        if (robot.color_sensor.red() > robot.color_sensor.blue() ) {    // if robot sees RED run this code:
             encoderDrive(DRIVE_SPEED,  -3,  3, 2.0);
             robot.arm.setPosition(0);
             sleep(1000);
@@ -164,7 +164,7 @@ telemetry.addData("RED", robot.color_sensor.red());
             telemetry.update();
             telemetry.addData("color", Integer.toString(robot.color_sensor.alpha()));
             telemetry.update();
-        } else {
+        } else {    // if the robot sees BLUE run this code:
             encoderDrive(DRIVE_SPEED,  2,  -2, 2.0);
             encoderDrive(DRIVE_SPEED,  -2,  -2, 2.0);
             encoderDrive(DRIVE_SPEED,  2,  2, 2.0);

@@ -105,7 +105,7 @@ public class TeleOpTankDrive extends LinearOpMode {
             }
             //Half Open
             else if (gamepad2.b) {
-                clawPosition = 0.5;
+                clawPosition = 0.5; // change this value  to be closed a little more
             }
             //Closed
             else if (gamepad2.a) {

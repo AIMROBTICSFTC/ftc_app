@@ -39,12 +39,11 @@ public class Team9997Hardware {
     public Servo clawR = null;
     public Servo grab = null;
     public Servo flipper = null;
+    public Servo arm = null;
     public ColorSensor color_sensor;
     public ColorSensor colorRight;
     public ColorSensor colorLeft;
     public ColorSensor colorArm;
-    public Servo arm = null;
-
     public DigitalChannel bottomLimit;
 
 
@@ -97,26 +96,23 @@ public class Team9997Hardware {
         flipper = hwMap.servo.get("flip");
         grab = hwMap.servo.get("grab");
         arm = hwMap.servo.get("arm");
+
         // Set all motors to zero power
         leftMotor.setPower(0);
         rightMotor.setPower(0);
         liftMotor.setPower(0);
 
-
         // Servos
         // Define and initialize ALL installed servos.
-        //  arm1 = hwMap.servo.get("arm1");
-        // arm1.setPosition(ARM_HOME);
-
 
         clawL.setPosition(CLAW_HOME);
         clawR.setPosition(CLAW_HOME);
+
         // Define and initialize ALL installed sensors.
         color_sensor = hwMap.colorSensor.get("color"); // uncomment to use color sensor,add too config
         colorArm = hwMap.colorSensor.get("ca");
-        colorLeft = hwMap.colorSensor.get("cl");
-        colorRight = hwMap.colorSensor.get("cr");
-
+        //colorLeft = hwMap.colorSensor.get("cl");
+        //colorRight = hwMap.colorSensor.get("cr");
         bottomLimit = hwMap.digitalChannel.get("limit");     //  Use generic form of device mapping
 
     }

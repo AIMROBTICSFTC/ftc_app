@@ -30,16 +30,13 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.Team9997Hardware;
-import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
-
 
 // test 2
+
 /**
  * This file illustrates the concept of driving a path based on encoder counts.
  * It uses the common Pushbot hardware class to define the drive on the robot.
@@ -67,9 +64,9 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name = "IgnoreThis", group = "9997")
+@Autonomous(name = "AutonBlue1", group = "9997")
 //@Disabled
-public class AutonRed1 extends LinearOpMode {
+public class AutonBlue1 extends LinearOpMode {
 
     /* Declare OpMode members. */
     Team9997Hardware robot = new Team9997Hardware();   // Use a Pushbot's hardware
@@ -139,7 +136,7 @@ telemetry.addData("RED", robot.color_sensor.red());
         telemetry.addData("ARGB", robot.color_sensor.argb());//
         telemetry.update();
 
-        if (robot.color_sensor.red() > robot.color_sensor.blue() ) {    // if robot sees RED run this code:
+        if (robot.color_sensor.red() > robot.color_sensor.blue() ) {
             encoderDrive(DRIVE_SPEED,  -3,  3, 2.0);
             robot.arm.setPosition(0);
             sleep(1000);
@@ -164,7 +161,7 @@ telemetry.addData("RED", robot.color_sensor.red());
             telemetry.update();
             telemetry.addData("color", Integer.toString(robot.color_sensor.alpha()));
             telemetry.update();
-        } else {    // if the robot sees BLUE run this code:
+        } else {
             encoderDrive(DRIVE_SPEED,  2,  -2, 2.0);
             encoderDrive(DRIVE_SPEED,  -2,  -2, 2.0);
             encoderDrive(DRIVE_SPEED,  2,  2, 2.0);
