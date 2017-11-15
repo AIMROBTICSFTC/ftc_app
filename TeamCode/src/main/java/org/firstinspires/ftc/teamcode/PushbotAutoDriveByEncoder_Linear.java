@@ -143,12 +143,12 @@ telemetry.addData("RED", robot.color_sensor.red());
             encoderDrive(DRIVE_SPEED,  -3,  3, 2.0);
             robot.arm.setPosition(0);
             sleep(1000);
-            encoderDrive(DRIVE_SPEED,  -5,  5, 2.0);
+            encoderDrive(DRIVE_SPEED,  -16,  16, 3.0);
 
-            encoderDrive(DRIVE_SPEED,  1.7,  1.7, 2.0);
+            encoderDrive(DRIVE_SPEED,  5.7,  5.7, 2.0);
             robot.liftMotor.setPower(0.0);
 
-            encoderDrive(DRIVE_SPEED,  -23,  23, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
+            encoderDrive(DRIVE_SPEED,  -12,  12, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
             // encoderDrive(TURN_SPEED,   12, -12, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout    Left = 0 riht
 
 
@@ -171,12 +171,12 @@ telemetry.addData("RED", robot.color_sensor.red());
             robot.arm.setPosition(0);
             sleep(1000);
 
-            encoderDrive(DRIVE_SPEED,  -5,  5, 2.0);
+            encoderDrive(DRIVE_SPEED,  -21,  21, 3.0);
 
-            encoderDrive(DRIVE_SPEED,  1.7,  1.7, 2.0);
+            encoderDrive(DRIVE_SPEED,  5.7,  5.7, 2.0);
             robot.liftMotor.setPower(0.0);
 
-            encoderDrive(DRIVE_SPEED,  -28,  28, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
+            encoderDrive(DRIVE_SPEED,  -15,  15, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
             // encoderDrive(TURN_SPEED,   12, -12, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout    Left = 0 riht
 
 
