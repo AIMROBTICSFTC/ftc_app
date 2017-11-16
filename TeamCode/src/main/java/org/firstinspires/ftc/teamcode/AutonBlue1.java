@@ -30,13 +30,16 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.Team9997Hardware;
+import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 
-// test 2
 
+// this is latest
 /**
  * This file illustrates the concept of driving a path based on encoder counts.
  * It uses the common Pushbot hardware class to define the drive on the robot.
@@ -76,7 +79,7 @@ public class AutonBlue1 extends LinearOpMode {
     static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is < 1.0 if geared UP
     static final double     WHEEL_DIAMETER_INCHES   = 3.54 ;     // For figuring circumference
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
-                                                      (WHEEL_DIAMETER_INCHES * 3.1415629);
+            (WHEEL_DIAMETER_INCHES * 3.1415629);
     static final double     DRIVE_SPEED             = 0.9;
     static final double     TURN_SPEED              = 0.5;
 
@@ -118,8 +121,8 @@ public class AutonBlue1 extends LinearOpMode {
         robot.clawR.setPosition(0.0);
         sleep(1000);
 
-        robot.arm.setPosition(0.45);
-sleep(1500);
+        robot.arm.setPosition(0.5);
+        sleep(1500);
         robot.liftMotor.setPower(0.5);
         sleep(500);
         while (opModeIsActive() && (runtime.seconds() < 0.2)) {
@@ -129,20 +132,21 @@ sleep(1500);
 
 
 
-telemetry.addData("RED", robot.color_sensor.red());
+        telemetry.addData("RED", robot.color_sensor.red());
         telemetry.addData("GREEN", robot.color_sensor.green());
         telemetry.addData("BLUE", robot.color_sensor.blue());
         telemetry.addData("ALPHA", robot.color_sensor.alpha());
         telemetry.addData("ARGB", robot.color_sensor.argb());//
         telemetry.update();
 
-        if (robot.color_sensor.red() > robot.color_sensor.blue() ) {
-            encoderDrive(DRIVE_SPEED,  -3,  3, 2.0);
+        if (robot.color_sensor.red() > robot.color_sensor.blue() ) {    // if robot sees RED run this code:
+            encoderDrive(DRIVE_SPEED,  -3,  3, 9.0);
             robot.arm.setPosition(0);
             sleep(1000);
-            encoderDrive(DRIVE_SPEED,  -16,  16, 3.0);
+            encoderDrive(DRIVE_SPEED,  -16,  16, 9.0);
 
-            encoderDrive(DRIVE_SPEED,  5.7,  5.7, 2.0);
+
+            encoderDrive(DRIVE_SPEED,  -5.7,  -5.7, 9.0);
             robot.liftMotor.setPower(0.0);
 
             encoderDrive(DRIVE_SPEED,  -12,  12, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
@@ -161,16 +165,17 @@ telemetry.addData("RED", robot.color_sensor.red());
             telemetry.update();
             telemetry.addData("color", Integer.toString(robot.color_sensor.alpha()));
             telemetry.update();
-        } else {
+        } else {    // if the robot sees BLUE run this code:
             encoderDrive(DRIVE_SPEED,  2,  -2, 2.0);
             encoderDrive(DRIVE_SPEED,  -2,  -2, 2.0);
-            encoderDrive(DRIVE_SPEED,  2,  2, 2.0);
             robot.arm.setPosition(0);
+            encoderDrive(DRIVE_SPEED,  2,  2, 2.0);
+
             sleep(1000);
 
             encoderDrive(DRIVE_SPEED,  -21,  21, 3.0);
 
-            encoderDrive(DRIVE_SPEED,  5.7,  5.7, 2.0);
+            encoderDrive(DRIVE_SPEED,  -5.7,  -5.7, 2.0);
             robot.liftMotor.setPower(0.0);
 
             encoderDrive(DRIVE_SPEED,  -15,  15, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout

@@ -133,10 +133,9 @@ sleep(1500);
 
 
 telemetry.addData("RED", robot.color_sensor.red());
-        telemetry.addData("GREEN", robot.color_sensor.green());
+
         telemetry.addData("BLUE", robot.color_sensor.blue());
-        telemetry.addData("ALPHA", robot.color_sensor.alpha());
-        telemetry.addData("ARGB", robot.color_sensor.argb());//
+
         telemetry.update();
 
         if (robot.color_sensor.red() > robot.color_sensor.blue() ) {    // if robot sees RED run this code:
