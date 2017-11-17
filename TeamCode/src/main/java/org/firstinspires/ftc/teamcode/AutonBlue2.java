@@ -141,7 +141,7 @@ public class AutonBlue2 extends LinearOpMode {
 
             encoderDrive(DRIVE_SPEED,  -10,  10, 3.0);
 
-            encoderDrive(DRIVE_SPEED,  -9,  -9, 3.0);
+            encoderDrive(DRIVE_SPEED,  9,  9, 3.0);
 
             encoderDrive(DRIVE_SPEED,  -15,  15, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
             // encoderDrive(TURN_SPEED,   12, -12, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout    Left = 0 riht
@@ -166,7 +166,7 @@ public class AutonBlue2 extends LinearOpMode {
             robot.arm.setPosition(0);
             sleep(1000);
 
-            encoderDrive(DRIVE_SPEED, -9, -9, 2);
+            encoderDrive(DRIVE_SPEED, 9, 9, 2);
 
             encoderDrive(DRIVE_SPEED,  -13,  13, 3.0);
 
@@ -181,7 +181,7 @@ public class AutonBlue2 extends LinearOpMode {
             sleep(1000);     // pause for servos to move
 
             encoderDrive(DRIVE_SPEED, 1, -1, 1.0);
-            // encoderDrive(DRIVE_SPEED, 37, -37, 5.0);//move back on to balencing platfrm
+            // encoderDrive(DRIVE_SPEED, 37, -37, 5.0);//move back on to balancing platform
 
             telemetry.addData("Path", "Complete");
             telemetry.update();

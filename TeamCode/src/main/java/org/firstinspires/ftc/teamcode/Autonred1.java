@@ -146,7 +146,7 @@ telemetry.addData("RED", robot.color_sensor.red());
             encoderDrive(DRIVE_SPEED,  -16,  16, 9.0);
 
 
-            encoderDrive(DRIVE_SPEED,  5.7,  5.7, 9.0);
+            encoderDrive(DRIVE_SPEED,  -5.7,  -5.7, 9.0);
             robot.liftMotor.setPower(0.0);
 
             encoderDrive(DRIVE_SPEED,  -12,  12, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
@@ -175,7 +175,7 @@ telemetry.addData("RED", robot.color_sensor.red());
 
             encoderDrive(DRIVE_SPEED,  -21,  21, 3.0);
 
-            encoderDrive(DRIVE_SPEED,  5.7,  5.7, 2.0);
+            encoderDrive(DRIVE_SPEED,  -5.7,  -5.7, 2.0);
             robot.liftMotor.setPower(0.0);
 
             encoderDrive(DRIVE_SPEED,  -15,  15, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
