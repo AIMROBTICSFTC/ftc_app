@@ -53,7 +53,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 @TeleOp(name = "ArcadeDrive", group = "9997")
-public class TestCode9997 extends LinearOpMode {
+public class TeleOp9997Arcade extends LinearOpMode {
 
     //Implementing
     private double TOP = 0.9;
@@ -75,7 +75,7 @@ public class TestCode9997 extends LinearOpMode {
         double ext;
         double clawPosition = 0;
         double hold = 0;
-        double reverse = 1;
+        double reverse = 0;
 
 
         //Initialize the hardware variables
@@ -98,16 +98,16 @@ public class TestCode9997 extends LinearOpMode {
             // If "A" is pressed robot reverses
             // If "B" is pressed robot returns to normal word
             if (gamepad1.a) {
-                reverse = 1;
-            } else if (gamepad1.b) {
                 reverse = 0;
+            } else if (gamepad1.b) {
+                reverse = 1;
             }
 
-            if (reverse == 1) {
-robot.arcadeDrive(gamepad1.right_stick_y, gamepad1.right_stick_x);
-} else if (reverse == 0) {
-robot.arcadeDrive(-gamepad1.right_stick_y, -gamepad1.right_stick_x);
-}
+            if (reverse == 0) {
+            robot.arcadeDrive(gamepad1.right_stick_y, gamepad1.right_stick_x);
+            } else if (reverse == 1) {
+            robot.arcadeDrive(-gamepad1.right_stick_y, gamepad1.right_stick_x);
+            }
 
             //Relic Claw Positioning
             if (gamepad2.left_bumper) {

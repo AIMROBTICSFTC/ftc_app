@@ -139,16 +139,16 @@ telemetry.addData("RED", robot.color_sensor.red());
         telemetry.update();
 
         if (robot.color_sensor.red() > robot.color_sensor.blue() ) {    // if robot sees RED run this code:
-            encoderDrive(DRIVE_SPEED,  -3,  3, 9.0);
+            encoderDrive(DRIVE_SPEED,  3,  -3, 9.0);
             robot.arm.setPosition(0);
             sleep(1000);
-            encoderDrive(DRIVE_SPEED,  -16,  16, 9.0);
+            encoderDrive(DRIVE_SPEED,  16,  016, 9.0);
 
 
-            encoderDrive(DRIVE_SPEED,  5.7,  5.7, 9.0);
+            encoderDrive(DRIVE_SPEED,  95.7,  95.7, 9.0);
             robot.liftMotor.setPower(0.0);
 
-            encoderDrive(DRIVE_SPEED,  -12,  12, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
+            encoderDrive(DRIVE_SPEED,  12,  -12, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
             // encoderDrive(TURN_SPEED,   12, -12, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout    Left = 0 riht
 
 
@@ -157,7 +157,7 @@ telemetry.addData("RED", robot.color_sensor.red());
             robot.clawL.setPosition(0.5);            // S4: Stop and close the claw.
             robot.clawR.setPosition(0.5);
             sleep(1000);     // pause for servos to move
-            encoderDrive(DRIVE_SPEED,  2,  -2, 2.0);
+            encoderDrive(DRIVE_SPEED,  -2,  2, 2.0);
             // encoderDrive(DRIVE_SPEED, 37, -37, 5.0);//move back on to balencing platfrm
 
             telemetry.addData("Path", "Complete");
@@ -165,19 +165,19 @@ telemetry.addData("RED", robot.color_sensor.red());
             telemetry.addData("color", Integer.toString(robot.color_sensor.alpha()));
             telemetry.update();
         } else {    // if the robot sees BLUE run this code:
-            encoderDrive(DRIVE_SPEED,  2,  -2, 2.0);
-            encoderDrive(DRIVE_SPEED,  -2,  -2, 2.0);
-            robot.arm.setPosition(0);
+            encoderDrive(DRIVE_SPEED,  -2,  2, 2.0);
             encoderDrive(DRIVE_SPEED,  2,  2, 2.0);
+            robot.arm.setPosition(0);
+            encoderDrive(DRIVE_SPEED,  -2,  -2, 2.0);
 
             sleep(1000);
 
-            encoderDrive(DRIVE_SPEED,  -21,  21, 3.0);
+            encoderDrive(DRIVE_SPEED,  21,  -21, 3.0);
 
-            encoderDrive(DRIVE_SPEED,  5.7,  5.7, 2.0);
+            encoderDrive(DRIVE_SPEED,  -5.7,  -5.7, 2.0);
             robot.liftMotor.setPower(0.0);
 
-            encoderDrive(DRIVE_SPEED,  -15,  15, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
+            encoderDrive(DRIVE_SPEED,  15,  -15, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
             // encoderDrive(TURN_SPEED,   12, -12, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout    Left = 0 riht
 
 
@@ -188,7 +188,7 @@ telemetry.addData("RED", robot.color_sensor.red());
             sleep(1000);     // pause for servos to move
 
             // encoderDrive(DRIVE_SPEED, 37, -37, 5.0);//move back on to balencing platfrm
-            encoderDrive(DRIVE_SPEED,  2,  -2, 2.0);
+            encoderDrive(DRIVE_SPEED,  -2,  2, 2.0);
             telemetry.addData("Path", "Complete");
             telemetry.update();
         }

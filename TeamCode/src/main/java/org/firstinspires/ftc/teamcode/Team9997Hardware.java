@@ -90,7 +90,7 @@ public class Team9997Hardware {
         liftMotor = hwMap.dcMotor.get("lift");
         rightMotor = hwMap.dcMotor.get("rd");
         extMotor = hwMap.dcMotor.get("ext");
-        leftMotor.setDirection(DcMotor.Direction.REVERSE); //commented out for encoder
+        rightMotor.setDirection(DcMotor.Direction.REVERSE); //commented out for encoder
         clawR = hwMap.servo.get("clawR");
         clawL = hwMap.servo.get("clawL");
         flipper = hwMap.servo.get("flip");
@@ -138,8 +138,8 @@ public class Team9997Hardware {
     }
 
     public void arcadeDrive(double forward, double sideways) {
-        rightMotor.setPower(-forward + sideways);
-        leftMotor.setPower(forward + sideways);
+        rightMotor.setPower(-forward + -sideways);//this resion is inverted
+        leftMotor.setPower(forward + -sideways);
     }
 
 

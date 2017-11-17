@@ -81,17 +81,17 @@ public class AutonBlue2 extends LinearOpMode {
         telemetry.update();
 
         if (robot.color_sensor.red() > robot.color_sensor.blue()) {   // if robot sees red do this code:
-            encoderDrive(SLOW_SPEED, -3, 3, 3.0);
+            encoderDrive(SLOW_SPEED, 3, -3, 3.0);
             robot.arm.setPosition(0);
             sleep(1000);
 
 
 
-            encoderDrive(DRIVE_SPEED, -10, 10, 3.0);
+            encoderDrive(DRIVE_SPEED, 10, -10, 3.0);
 
-            encoderDrive(DRIVE_SPEED, 9, 9, 3.0);
+            encoderDrive(DRIVE_SPEED, -9, -9, 3.0);
 
-            encoderDrive(DRIVE_SPEED, -15, 15, 5.0);
+            encoderDrive(DRIVE_SPEED, 15, -15, 5.0);
 
             // S1: Forward 47 Inches with 5 Sec timeout
             // encoderDrive(TURN_SPEED,   12, -12, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout    Left = 0 right
@@ -101,7 +101,7 @@ public class AutonBlue2 extends LinearOpMode {
             robot.clawR.setPosition(0.5);
             sleep(1000);     // pause for servos to move
 
-            encoderDrive(DRIVE_SPEED, 3, -3, 1);
+            encoderDrive(DRIVE_SPEED, -3, 3, 1);
 
             // encoderDrive(DRIVE_SPEED, 37, -37, 5.0);//move back on to balencing platfrm
 
@@ -110,18 +110,18 @@ public class AutonBlue2 extends LinearOpMode {
             telemetry.addData("color", Integer.toString(robot.color_sensor.alpha()));
             telemetry.update();
         } else {   // if robot sees blue run this code:
-            encoderDrive(DRIVE_SPEED, 2, -2, 2.0);
-            encoderDrive(DRIVE_SPEED, -2, -2, 2.0);
+            encoderDrive(DRIVE_SPEED, -2, 2, 2.0);
             encoderDrive(DRIVE_SPEED, 2, 2, 2.0);
+            encoderDrive(DRIVE_SPEED, -2, -2, 2.0);
             robot.arm.setPosition(0);
             sleep(1000);
 
-            encoderDrive(DRIVE_SPEED, -26, 26, 6.0);
+            encoderDrive(DRIVE_SPEED, 26, -26, 6.0);
 
-            encoderDrive(DRIVE_SPEED, 10,10
+            encoderDrive(DRIVE_SPEED, -10,-10
                     , 4);
 
-            encoderDrive(DRIVE_SPEED, -10, 10, 3.0);  // S1: Forward 47 Inches with 5 Sec timeout
+            encoderDrive(DRIVE_SPEED, 10, -10, 3.0);  // S1: Forward 47 Inches with 5 Sec timeout
             // encoderDrive(TURN_SPEED,   12, -12, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout    Left = 0 right
 
 
@@ -129,7 +129,7 @@ public class AutonBlue2 extends LinearOpMode {
             robot.clawR.setPosition(0.5);
             sleep(1000);     // pause for servos to move
 
-            encoderDrive(DRIVE_SPEED, 3, -3, 1.0);
+            encoderDrive(DRIVE_SPEED, -3, 3, 1.0);
             // encoderDrive(DRIVE_SPEED, 37, -37, 5.0);//move back on to balencing platform
 
             telemetry.addData("Path", "Complete");

@@ -71,8 +71,8 @@ public class TeleOpTankDrive extends LinearOpMode {
                 left = gamepad1.left_stick_y;
 
                 //Apply to motor
-                robot.leftMotor.setPower(left * (left));
-                robot.rightMotor.setPower(right * (right));
+                robot.leftMotor.setPower(left * Math.abs(left));
+                robot.rightMotor.setPower(right * Math.abs(right));
             } else if (reverse == 0) {
 
                 //Sets not as reverse
@@ -80,8 +80,8 @@ public class TeleOpTankDrive extends LinearOpMode {
                 left = -gamepad1.left_stick_y;
 
                 //Applies to motor
-                robot.leftMotor.setPower(left * (left));
-                robot.rightMotor.setPower(right * (right));
+                robot.leftMotor.setPower(left * Math.abs(left));
+                robot.rightMotor.setPower(right * Math.abs(right));
             }
 
             //Relic Claw Positioning
@@ -120,8 +120,8 @@ public class TeleOpTankDrive extends LinearOpMode {
             if (!robot.bottomLimit.getState()) {
 
                 // Lift Positioning
-                if (gamepad2.left_stick_y > 0) {
-                    lift = 0;
+                if (gamepad2.left_stick_y < 0) {
+                   lift = 0;
                 } else {
                     lift = -gamepad2.left_stick_y;
                 }
