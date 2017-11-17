@@ -1,4 +1,43 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode;/*
+Copyright (c) 2016 Robert Atkinson
+
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted (subject to the limitations in the disclaimer below) provided that
+the following conditions are met:
+
+Redistributions of source code must retain the above copyright notice, this list
+of conditions and the following disclaimer.
+
+Redistributions in binary form must reproduce the above copyright notice, this
+list of conditions and the following disclaimer in the documentation and/or
+other materials provided with the distribution.
+
+Neither the name of Robert Atkinson nor the names of his contributors may be used to
+endorse or promote products derived from this software without specific prior
+written permission.
+
+NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY THIS
+LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESSFOR A PARTICULAR PURPOSE
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR
+TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+//if (reverse == 1) {
+//robot.arcadeDrive(gamepad1.right_stick_y, gamepad1.right_stick_x);
+//} else if (reverse == 0) {
+//robot.arcadeDrive(-gamepad1.right_stick_y, -gamepad1.right_stick_x);
+//}
+
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 /*
     Offical Code of AIM Acedemy Robotics Team
@@ -13,8 +52,8 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-@TeleOp(name = "TankDrive", group = "9997")
-public class TeleOpTankDrive extends LinearOpMode {
+@TeleOp(name = "ArcadeDrive", group = "9997")
+public class TeleOp9997Arcade extends LinearOpMode {
 
     //Implementing
     private double TOP = 0.9;
@@ -36,7 +75,7 @@ public class TeleOpTankDrive extends LinearOpMode {
         double ext;
         double clawPosition = 0;
         double hold = 0;
-        double reverse = 1;
+        double reverse = 0;
 
 
         //Initialize the hardware variables
@@ -59,29 +98,15 @@ public class TeleOpTankDrive extends LinearOpMode {
             // If "A" is pressed robot reverses
             // If "B" is pressed robot returns to normal word
             if (gamepad1.a) {
-                reverse = 1;
-            } else if (gamepad1.b) {
                 reverse = 0;
+            } else if (gamepad1.b) {
+                reverse = 1;
             }
 
-            if (reverse == 1) {
-
-              //Sets reverse
-                right = -gamepad1.right_stick_y;
-                left = gamepad1.left_stick_y;
-
-                //Apply to motor
-                robot.leftMotor.setPower(left * Math.abs(left));
-                robot.rightMotor.setPower(right * Math.abs(right));
-            } else if (reverse == 0) {
-
-                //Sets not as reverse
-                right = gamepad1.right_stick_y;
-                left = -gamepad1.left_stick_y;
-
-                //Applies to motor
-                robot.leftMotor.setPower(left * Math.abs(left));
-                robot.rightMotor.setPower(right * Math.abs(right));
+            if (reverse == 0) {
+            robot.arcadeDrive(gamepad1.right_stick_y, gamepad1.right_stick_x);
+            } else if (reverse == 1) {
+            robot.arcadeDrive(-gamepad1.right_stick_y, gamepad1.right_stick_x);
             }
 
             //Relic Claw Positioning
@@ -93,6 +118,13 @@ public class TeleOpTankDrive extends LinearOpMode {
                 hold = 1.0;
             }
 
+            if(gamepad1.right_bumper){
+            robot.leftMotor.setPower(-1.0);
+            robot.rightMotor.setPower(1.0);
+            } else if(gamepad1.left_bumper){
+                robot.leftMotor.setPower(1.0);
+                robot.rightMotor.setPower(-1.0);
+            }
             //Setting Relic Claw Positioning
             robot.grab.setPosition(hold);
 
@@ -120,8 +152,8 @@ public class TeleOpTankDrive extends LinearOpMode {
             if (!robot.bottomLimit.getState()) {
 
                 // Lift Positioning
-                if (gamepad2.left_stick_y < 0) {
-                   lift = 0;
+                if (gamepad2.left_stick_y > 0) {
+                    lift = 0;
                 } else {
                     lift = -gamepad2.left_stick_y;
                 }

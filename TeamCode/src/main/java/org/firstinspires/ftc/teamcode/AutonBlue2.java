@@ -1,65 +1,14 @@
-/* Copyright (c) 2017 FIRST. All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted (subject to the limitations in the disclaimer below) provided that
- * the following conditions are met:
- *
- * Redistributions of source code must retain the above copyright notice, this list
- * of conditions and the following disclaimer.
- *
- * Redistributions in binary form must reproduce the above copyright notice, this
- * list of conditions and the following disclaimer in the documentation and/or
- * other materials provided with the distribution.
- *
- * Neither the name of FIRST nor the names of its contributors may be used to endorse or
- * promote products derived from this software without specific prior written permission.
- *
- * NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY THIS
- * LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE888 COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
 
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-/**
- * This file illustrates the concept of driving a path based on encoder counts.
- * It uses the common Pushbot hardware class to define the drive on the robot.
- * The code is structured as a LinearOpMode
- * <p>
- * The code REQUIRES that you DO have encoders on the wheels,
- * otherwise you would use: PushbotAutoDriveByTime;
- * <p>
- * This code ALSO requires that the drive Motors have been configured such that a positive
- * power command moves them forwards, and causes the encoders to count UP.
- * <p>
- * The desired path in this example is:
- * - Drive forward for 48 inches
- * - Spin right for 12 Inches
- * - Drive Backwards for 24 inches
- * - Stop and close the claw.
- * <p>
- * The code is written using a method called: encoderDrive(speed, leftInches, rightInches, timeoutS)
- * that performs the actual movement.
- * This methods assumes that each movement is relative to the last stopping place.
- * There are other ways to perform encoder based moves, but this method is probably the simplest.
- * This code uses the RUN_TO_POSITION mode to enable the Motor controllers to generate the run profile
- * <p>
- * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
- * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
- */
+import org.firstinspires.ftc.teamcode.Team9997Hardware;
+import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 
 @Autonomous(name = "AutonBlue2", group = "9997")
 //@Disabled
@@ -69,18 +18,15 @@ public class AutonBlue2 extends LinearOpMode {
     Team9997Hardware robot = new Team9997Hardware();   // Use a Pushbot's hardware
     private ElapsedTime runtime = new ElapsedTime();
 
-    static final double     COUNTS_PER_MOTOR_REV    = 280 ;    // eg: TETRIX Motor Encoder
-    static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is < 1.0 if geared UP
-    static final double     WHEEL_DIAMETER_INCHES   = 3.54 ;     // For figuring circumference
-    static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
+    static final double COUNTS_PER_MOTOR_REV = 280;    // eg: TETRIX Motor Encoder
+    static final double DRIVE_GEAR_REDUCTION = 1.0;     // This is < 1.0 if geared UP
+    static final double WHEEL_DIAMETER_INCHES = 3.54;     // For figuring circumference
+    static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_INCHES * 3.1415926535897);
-    static final double     DRIVE_SPEED             = 0.9;
-    static final double     SLOW_SPEED              = 0.4;
-    static final double     TURN_SPEED              = 0.5;
-    static final double     LIFT_SPEED              = 0.9;
-
-
-
+    static final double DRIVE_SPEED = 0.9;
+    static final double SLOW_SPEED = 0.4;
+    static final double TURN_SPEED = 0.5;
+    static final double LIFT_SPEED = 0.9;
 
     @Override
     public void runOpMode() {
@@ -113,17 +59,17 @@ public class AutonBlue2 extends LinearOpMode {
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
 
-        robot.clawL.setPosition(1.0);
+        robot.clawL.setPosition(1.0);    // why is this set to close after initializing?
         robot.clawR.setPosition(0.0);
         sleep(1000);
 
-        robot.arm.setPosition(0.45);
+        robot.arm.setPosition(0.5);
         sleep(1500);
 
         telemetry.addData("Path", "Leg 2: %2.5f S Elapsed", runtime.seconds());
         telemetry.update();
-        robot.liftMotor.setPower(0.5);
-        sleep(3000);
+        robot.liftMotor.setPower(0.9);
+        sleep(1500);
         robot.liftMotor.setPower(0);
 
 
@@ -134,24 +80,32 @@ public class AutonBlue2 extends LinearOpMode {
         telemetry.addData("ARGB", robot.color_sensor.argb());//
         telemetry.update();
 
-        if (robot.color_sensor.red() > robot.color_sensor.blue() ) {
-            encoderDrive(DRIVE_SPEED,  -3,  3, 2.0);
+        if (robot.color_sensor.red() > robot.color_sensor.blue()) {   // if robot sees red do this code:
+            encoderDrive(SLOW_SPEED, 3, -3, 3.0);
             robot.arm.setPosition(0);
             sleep(1000);
 
-            encoderDrive(DRIVE_SPEED,  -10,  10, 3.0);
 
+<<<<<<< HEAD
             encoderDrive(DRIVE_SPEED,  9,  9, 3.0);
+=======
+>>>>>>> ca7b27700b082d3257709ddd8e2dfefa48ba60ee
 
-            encoderDrive(DRIVE_SPEED,  -15,  15, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
-            // encoderDrive(TURN_SPEED,   12, -12, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout    Left = 0 riht
+            encoderDrive(DRIVE_SPEED, 10, -10, 3.0);
 
+            encoderDrive(DRIVE_SPEED, -9, -9, 3.0);
 
+            encoderDrive(DRIVE_SPEED, 15, -15, 5.0);
+
+            // S1: Forward 47 Inches with 5 Sec timeout
+            // encoderDrive(TURN_SPEED,   12, -12, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout    Left = 0 right
 
 
             robot.clawL.setPosition(0.5);            // S4: Stop and close the claw.
             robot.clawR.setPosition(0.5);
             sleep(1000);     // pause for servos to move
+
+            encoderDrive(DRIVE_SPEED, -3, 3, 1);
 
             // encoderDrive(DRIVE_SPEED, 37, -37, 5.0);//move back on to balencing platfrm
 
@@ -159,29 +113,42 @@ public class AutonBlue2 extends LinearOpMode {
             telemetry.update();
             telemetry.addData("color", Integer.toString(robot.color_sensor.alpha()));
             telemetry.update();
-        } else {
-            encoderDrive(DRIVE_SPEED,  2,  -2, 2.0);
-            encoderDrive(DRIVE_SPEED,  -2,  -2, 2.0);
-            encoderDrive(DRIVE_SPEED,  2,  2, 2.0);
+        } else {   // if robot sees blue run this code:
+            encoderDrive(DRIVE_SPEED, -2, 2, 2.0);
+            encoderDrive(DRIVE_SPEED, 2, 2, 2.0);
+            encoderDrive(DRIVE_SPEED, -2, -2, 2.0);
             robot.arm.setPosition(0);
             sleep(1000);
 
+<<<<<<< HEAD
             encoderDrive(DRIVE_SPEED, 9, 9, 2);
 
             encoderDrive(DRIVE_SPEED,  -13,  13, 3.0);
 
             encoderDrive(DRIVE_SPEED,  -15,  15, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
             // encoderDrive(TURN_SPEED,   12, -12, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout    Left = 0 riht
+=======
+            encoderDrive(DRIVE_SPEED, 26, -26, 6.0);
+>>>>>>> ca7b27700b082d3257709ddd8e2dfefa48ba60ee
 
+            encoderDrive(DRIVE_SPEED, -10,-10
+                    , 4);
 
+            encoderDrive(DRIVE_SPEED, 10, -10, 3.0);  // S1: Forward 47 Inches with 5 Sec timeout
+            // encoderDrive(TURN_SPEED,   12, -12, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout    Left = 0 right
 
 
             robot.clawL.setPosition(0.5);            // S4: Stop and close the claw.
             robot.clawR.setPosition(0.5);
             sleep(1000);     // pause for servos to move
 
+<<<<<<< HEAD
             encoderDrive(DRIVE_SPEED, 1, -1, 1.0);
             // encoderDrive(DRIVE_SPEED, 37, -37, 5.0);//move back on to balancing platform
+=======
+            encoderDrive(DRIVE_SPEED, -3, 3, 1.0);
+            // encoderDrive(DRIVE_SPEED, 37, -37, 5.0);//move back on to balencing platform
+>>>>>>> ca7b27700b082d3257709ddd8e2dfefa48ba60ee
 
             telemetry.addData("Path", "Complete");
             telemetry.update();
@@ -200,7 +167,11 @@ public class AutonBlue2 extends LinearOpMode {
      *  2) Move runs out of time
      *  3) Driver stops the opmode running.
      */
-    public void encoderLift(double speed,
+
+    //Experimenting with encoders for lift
+
+
+    /*public void encoderLift(double speed,
                             double LiftInches,
                             double timeoutS) {
 
@@ -231,11 +202,9 @@ public class AutonBlue2 extends LinearOpMode {
             robot.liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
-
-
-
         }
-    }
+    }*/
+
     public void encoderDrive(double speed,
                              double leftInches, double rightInches,
                              double timeoutS) {
